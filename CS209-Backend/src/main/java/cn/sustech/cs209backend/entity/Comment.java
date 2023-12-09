@@ -25,9 +25,10 @@ public class Comment {
     private boolean edited;
 
     //    @ManyToOne
-    @JoinColumn(name = "answer", referencedColumnName = "answer_id",
-            foreignKey = @ForeignKey(name = "fk_comments_answers"))
-    private int answer_id;
+//    @JoinColumn(name = "post_id", referencedColumnName = "answer_id",
+//            foreignKey = @ForeignKey(name = "fk_comments_answers"))
+    @Column(nullable = false)
+    private int postId;
 
 
     @Column(nullable = false)
