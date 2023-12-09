@@ -314,7 +314,12 @@ public class DatabaseService {
         String content_license = answerJSON.getString("content_license");
         int question_id = answerJSON.getInteger("question_id");
         String body = answerJSON.getString("body");
-        int account_id = answerJSON.getJSONObject("owner").getInteger("account_id");
+
+        int account_id = -1;
+        try {
+            account_id = answerJSON.getJSONObject("owner").getInteger("account_id");
+        } catch (Exception e) {
+        }
 
 //        PreparedStatement statement = this.prepareStatement(
 //                "insert into answers (answer_id, account_id, body, content_license, creation_date, is_accepted,\n" +
@@ -368,7 +373,12 @@ public class DatabaseService {
         Timestamp creation_date = convertTime(commentJSON.getInteger("creation_date"));
         int score = commentJSON.getInteger("score");
         String content_license = commentJSON.getString("content_license");
-        int account_id = commentJSON.getJSONObject("owner").getInteger("account_id");
+
+        int account_id = -1;
+        try {
+            account_id = commentJSON.getJSONObject("owner").getInteger("account_id");
+        } catch (Exception e) {
+        }
 //
 //        PreparedStatement statement = this.prepareStatement(
 //                "insert into comments (comment_id, account_id, post_id, body, content_license, creation_date, edited, score) " +

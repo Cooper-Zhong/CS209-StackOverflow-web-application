@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
 
+import javax.json.Json;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,15 +49,16 @@ public class Crawler {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(questionJsonPath));
             StringBuilder content = new StringBuilder();
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                content.append(line);
-            }
-            bufferedReader.close();
-            JSONArray jsonArray = JSONArray.parseArray(content.toString());
-            for (Object obj : jsonArray) {
-                JSONObject questionItem = (JSONObject) obj;
-                databaseService.insertQuestionJson(questionItem);
-            }
+//            while ((line = bufferedReader.readLine()) != null) {
+//                content.append(line);
+//            }
+//            bufferedReader.close();
+//            JSONArray jsonArray = JSONArray.parseArray(content.toString());
+//            for (Object obj : jsonArray) {
+//                JSONObject questionItem = (JSONObject) obj;
+//                databaseService.insertQuestionJson(questionItem);
+//            }
+            JSONArray jsonArray;
 
             // answer
             bufferedReader = new BufferedReader(new FileReader(answerJsonPath));
