@@ -23,7 +23,7 @@ public class Crawler {
 
     public static void crawl() throws SQLException, IOException {
         DatabaseService databaseService = new DatabaseService();
-        DataCollector dataCollector = new DataCollector(databaseService, 50, 168);
+        DataCollector dataCollector = new DataCollector(databaseService, 50, 666);
 //        databaseService.connect();
         databaseService.disableForeignKeyCheck();
         dataCollector.collectData();
@@ -32,15 +32,15 @@ public class Crawler {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
-//        crawl();
-        save();
+        crawl();
+//        save();
 
     }
 
     public static void save() throws SQLException, IOException {
-        String questionJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/questions.json";
-        String answerJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/answers.json";
-        String commentJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/comments.json";
+        String questionJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/questions1.json";
+        String answerJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/answers1.json";
+        String commentJsonPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/comments1.json";
         DatabaseService databaseService = new DatabaseService();
 
 
