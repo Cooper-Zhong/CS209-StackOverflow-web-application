@@ -1,5 +1,6 @@
 package cn.sustech.cs209backend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class Api {
 
     @Id
+    @Column(name = "api_name")
     private String apiName;
 
 }

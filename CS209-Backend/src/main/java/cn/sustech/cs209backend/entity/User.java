@@ -1,5 +1,6 @@
 package cn.sustech.cs209backend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -18,6 +19,7 @@ public class User {
 
 
     @Id
+    @Column(name = "account_id")
     private int accountId;
 
     private String link;

@@ -203,8 +203,8 @@ public class DataCollector {
 
     public void collectData() throws IOException, SQLException {
         // 数据爬取
-        int pageTotal = 30;
-        int step = 1;
+        int pageTotal = 20;
+        int step = 36;
         for (int i = 1; i<=pageTotal; i++) {
             step += pageStep;
             // 按照activity排序，获取每隔pageStep页的pageSize个问题
@@ -403,9 +403,9 @@ public class DataCollector {
         String questionJsonString = questionJsonArray.toJSONString();
         String answerJsonString = answerJsonArray.toJSONString();
         String commentJsonString = commentJsonArray.toJSONString();
-        String QuestionPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/questions.json";
-        String answerPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/answers.json";
-        String commentPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/comments.json";
+        String QuestionPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/questions1.json";
+        String answerPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/answers1.json";
+        String commentPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/comments1.json";
         try {
             // 创建 FileWriter 对象
             FileWriter fileWriter = new FileWriter(QuestionPath);
