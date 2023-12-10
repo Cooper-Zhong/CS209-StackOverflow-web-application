@@ -44,11 +44,11 @@ public class Comment {
 
     private String contentLicense;
 
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id",
             foreignKey = @ForeignKey(name = "fk_comments_users"))
-//    private int accountId;
-    private User user;
+    private int accountId;
+//    private User user;
 
     @ManyToMany
     @JoinTable(name = "comments_bugs",

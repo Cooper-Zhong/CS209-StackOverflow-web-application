@@ -26,11 +26,11 @@ public class Question {
     private int questionId;
 
     @JsonIgnoreProperties("user") // 忽略user字段
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_questions_users"))
-//    private int accountId;
-    private User user;
+    private int accountId;
+//    private User user;
 
 
     @Column(nullable = false)

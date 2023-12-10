@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
 
     @GetMapping("/all")
     public List<Question> allQuestions() {
@@ -39,33 +39,9 @@ public class QuestionController {
         return questionService.questionByTagName(tagName);
     }
 
-    @GetMapping("/avgViewCount/{topic}")
-    public double avgViewCount(@PathVariable String topic) {
-        return questionService.avgViewCount(topic).intValue();
+    @GetMapping("/findByBugName/{bugName}")
+    public List<Question> questionByBugName(@PathVariable String bugName) {
+        return questionService.questionsByBugName(bugName);
     }
 
-    @GetMapping("/avgAnswerCount/{topic}")
-    public double avgAnswerCount(@PathVariable String topic) {
-        return questionService.avgAnswerCount(topic);
-    }
-
-    @GetMapping("/totalAnswerCount/{topic}")
-    public int totalAnswerCount(@PathVariable String topic) {
-        return questionService.totalAnswerCount(topic);
-    }
-
-    @GetMapping("/topicQuestionCount/{topic}")
-    public int topicQuestionCount(@PathVariable String topic) {
-        return questionService.topicQuestionCount(topic);
-    }
-
-    @GetMapping("/totalScore/{topic}")
-    public int totalScore(@PathVariable String topic) {
-        return questionService.totalScore(topic);
-    }
-
-    @GetMapping("/avgScore/{topic}")
-    public double avgScore(@PathVariable String topic) {
-        return questionService.avgScore(topic);
-    }
 }
