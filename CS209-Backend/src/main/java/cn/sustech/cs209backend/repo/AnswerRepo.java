@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 public interface AnswerRepo extends JpaRepository<Answer, Integer> {
 
-    @Query(value = "select * from answer where question_id = ?1", nativeQuery = true)
+    @Query(value = "select * from answers where question_id = ?1", nativeQuery = true)
     List<Answer> findByQuestionID(int questionID);
 
-    @Query(value = "select * from answer where answer_id = ?1", nativeQuery = true)
+    @Query(value = "select * from answers where answer_id = ?1", nativeQuery = true)
     List<Answer> findByAnswerID(int answerID);
 
-    @Query(value = "select * from answer where creation_date between ?1 and ?2", nativeQuery = true)
+    @Query(value = "select * from answers where creation_date between ?1 and ?2", nativeQuery = true)
     List<Answer> findByDate(Timestamp from, Timestamp end);
 }

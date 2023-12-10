@@ -58,12 +58,13 @@ public class Answer {
     @Column(nullable = false)
     private String body;
 
+
     @JoinColumn(name = "account_id", referencedColumnName = "account_id",
             foreignKey = @ForeignKey(name = "fk_answers_users"))
-    @ManyToOne
+//    @ManyToOne
     @JsonIgnore
-//    private int accountId;
-    private User user;
+//    private User user;
+    private int accountId;
 
 
     @ManyToMany
