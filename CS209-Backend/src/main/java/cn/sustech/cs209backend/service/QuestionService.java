@@ -3,11 +3,8 @@ package cn.sustech.cs209backend.service;
 import cn.sustech.cs209backend.dto.BugViewCount;
 import cn.sustech.cs209backend.dto.TagViewCount;
 import cn.sustech.cs209backend.entity.Question;
-import cn.sustech.cs209backend.entity.Tag;
 import cn.sustech.cs209backend.repo.QuestionRepo;
-import org.hibernate.query.ResultListTransformer;
-import org.hibernate.transform.AliasToBeanResultTransformer;
-import org.hibernate.transform.ResultTransformer;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,8 +92,8 @@ public class QuestionService {
         return sum/questions.size();
     }
 
-    public List<TagViewCount> topKPopularTags(int k) {
-        List<Map> result = questionRepo.topKPopularTags(k);
+    public List<TagViewCount> topKTagsByViewCount(int k) {
+        List<Map> result = questionRepo.topKTagsByViewCount(k);
         List<TagViewCount> tagViewCounts = new ArrayList<>();
         for (Map map : result) {
             String tagName = (String) map.get("tag_name");
@@ -105,6 +102,49 @@ public class QuestionService {
         }
         return tagViewCounts;
     }
+
+    public List<JSONObject> topKTagsByAnswerCount(int k) {
+        List<Map> result = questionRepo.topKTagsByAnswerCount(k);
+        List<JSONObject> resultList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("tag_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_answer_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tagName", tagName);
+            jsonObject.put("averageAnswerCount", average_view_count.intValue());
+            resultList.add(jsonObject);
+        }
+        return resultList;
+    }
+
+    public List<JSONObject> topKTagsByAvgScore(int k) {
+        List<Map> result = questionRepo.topKTagsByAvgScore(k);
+        List<JSONObject> resultList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("tag_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tagName", tagName);
+            jsonObject.put("averageScore", average_view_count.intValue());
+            resultList.add(jsonObject);
+        }
+        return resultList;
+    }
+
+    public List<JSONObject> topKTagsByQuestionCount(int k) {
+        List<Map> result = questionRepo.topKTagsByQuestionCount(k);
+        List<JSONObject> resultList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("tag_name");
+            long average_view_count = (long) map.get("question_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tagName", tagName);
+            jsonObject.put("questionCount", average_view_count);
+            resultList.add(jsonObject);
+        }
+        return resultList;
+    }
+
 
     // bug ------------------------------------------------------
 
@@ -164,8 +204,8 @@ public class QuestionService {
         return sum/questions.size();
     }
 
-    public List<BugViewCount> topKPopularBugs(int k) {
-        List<Map> result = questionRepo.topKPopularBugs(k);
+    public List<BugViewCount> topKBugsByViewCount(int k) {
+        List<Map> result = questionRepo.topKBugsByViewCount(k);
         List<BugViewCount> bugViewCounts = new ArrayList<>();
         for (Map map : result) {
             String tagName = (String) map.get("bug_name");
@@ -173,6 +213,48 @@ public class QuestionService {
             bugViewCounts.add(new BugViewCount(tagName, average_view_count.intValue()));
         }
         return bugViewCounts;
+    }
+
+    public List<JSONObject> topKBugsByAnswerCount(int k) {
+        List<Map> result = questionRepo.topKBugsByAnswerCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_answer_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageAnswerCount", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKBugsByAvgScore(int k) {
+        List<Map> result = questionRepo.topKBugsByAvgScore(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageScore", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKBugsByQuestionCount(int k) {
+        List<Map> result = questionRepo.topKBugsByQuestionCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            long average_view_count = (long) map.get("question_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("questionCount", average_view_count);
+            tempList.add(jsonObject);
+        }
+        return tempList;
     }
 
 
