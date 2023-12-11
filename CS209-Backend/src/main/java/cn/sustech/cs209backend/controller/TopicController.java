@@ -1,13 +1,11 @@
 package cn.sustech.cs209backend.controller;
 
 import cn.sustech.cs209backend.dto.TagViewCount;
-import cn.sustech.cs209backend.entity.Question;
 import cn.sustech.cs209backend.service.QuestionService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,8 +46,25 @@ public class TopicController {
         return questionService.topicAvgScore(topic);
     }
 
-    @GetMapping("/topKTagsByViewCount/{k}")
+    @GetMapping("/topKByViewCount/{k}")
     public List<TagViewCount> topKTagsByViewCount(@PathVariable int k) {
-        return questionService.topKPopularTags(k);
+        return questionService.topKTagsByViewCount(k);
     }
+
+    @GetMapping("/topKByAnswerCount/{k}")
+    public List<JSONObject> topKTagsByAnswerCount(@PathVariable int k) {
+        return questionService.topKTagsByAnswerCount(k);
+    }
+
+    @GetMapping("/topKByQuestionCount/{k}")
+    public List<JSONObject> topKTagsByQuestionCount(@PathVariable int k) {
+        return questionService.topKTagsByQuestionCount(k);
+    }
+
+    @GetMapping("/topKByAvgScore/{k}")
+    public List<JSONObject> topKTagsByAvgScore(@PathVariable int k) {
+        return questionService.topKTagsByAvgScore(k);
+    }
+
+
 }

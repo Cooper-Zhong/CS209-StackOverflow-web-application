@@ -1,9 +1,8 @@
 package cn.sustech.cs209backend.controller;
 
 import cn.sustech.cs209backend.dto.BugViewCount;
-import cn.sustech.cs209backend.dto.TagViewCount;
-import cn.sustech.cs209backend.entity.Bug;
 import cn.sustech.cs209backend.service.QuestionService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,9 +48,24 @@ public class BugController {
         return questionService.bugNameAvgScore(bug);
     }
 
-    @GetMapping("/topKTagsByViewCount/{k}")
-    public List<BugViewCount> topKTagsByViewCount(@PathVariable int k) {
-        return questionService.topKPopularBugs(k);
+    @GetMapping("/topKByViewCount/{k}")
+    public List<BugViewCount> topKBugsByViewCount(@PathVariable int k) {
+        return questionService.topKBugsByViewCount(k);
+    }
+
+    @GetMapping("/topKByAnswerCount/{k}")
+    public List<JSONObject> topKBugsByAnswerCount(@PathVariable int k) {
+        return questionService.topKBugsByAnswerCount(k);
+    }
+
+    @GetMapping("/topKByAvgScore/{k}")
+    public List<JSONObject> topKBugsByAvgScore(@PathVariable int k) {
+        return questionService.topKBugsByAvgScore(k);
+    }
+
+    @GetMapping("/topKByQuestionCount/{k}")
+    public List<JSONObject> topKBugsByQuestionCount(@PathVariable int k) {
+        return questionService.topKBugsByQuestionCount(k);
     }
 
 
