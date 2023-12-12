@@ -4,6 +4,7 @@ import cn.sustech.cs209backend.entity.Question;
 import cn.sustech.cs209backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -16,6 +17,14 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @RequestMapping(value = "/", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity
+                .ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE")
+                .build();
+    }
 
     @GetMapping("/all")
     public List<Question> allQuestions() {
