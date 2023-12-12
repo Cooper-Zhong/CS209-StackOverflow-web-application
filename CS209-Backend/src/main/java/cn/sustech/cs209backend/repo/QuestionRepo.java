@@ -57,6 +57,15 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
             "LIMIT :k", nativeQuery = true)
     List<Map> topKTagsByQuestionCount(@Param("k") Integer k);
 
+    // intimacy ------------------------------------------------------
+
+    @Query(value = "select * from calculate_tag_similarity(:tagName,:k);", nativeQuery = true)
+    List<Map> topKTagsByIntimacy(@Param("k") Integer k, @Param("tagName") String tagName);
+
+    // 返回k个字面上相似的tag
+    @Query(value = "select * from find_similar_tag_name(:tagName,:k);", nativeQuery = true)
+    List<Map> KSimilarTags(@Param("k") Integer k, @Param("tagName") String tagName);
+
 
     // bug ------------------------------------------------------
 

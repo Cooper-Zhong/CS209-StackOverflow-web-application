@@ -4,6 +4,7 @@ import cn.sustech.cs209backend.dto.TagViewCount;
 import cn.sustech.cs209backend.service.QuestionService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,15 @@ public class TopicController {
 
     @Autowired
     private QuestionService questionService;
+
+    @RequestMapping(value = "/", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity
+                .ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE")
+                .build();
+    }
 
 
     @GetMapping("/avgViewCount/{topic}")
@@ -64,6 +74,18 @@ public class TopicController {
     @GetMapping("/topKByAvgScore/{k}")
     public List<JSONObject> topKTagsByAvgScore(@PathVariable int k) {
         return questionService.topKTagsByAvgScore(k);
+    }
+
+    // intimacy ------------------------------------------------------
+
+    @GetMapping("/intimacy")
+    public List<JSONObject> intimacy(@RequestParam("k") Integer k, @RequestParam("topic") String topic) {
+        return questionService.KIntimateTags(topic, k);
+    }
+
+    @GetMapping("/similar")
+    public List<JSONObject> similar(@RequestParam("k") Integer k, @RequestParam("topic") String topic) {
+        return questionService.KSimilarTags(topic, k);
     }
 
 

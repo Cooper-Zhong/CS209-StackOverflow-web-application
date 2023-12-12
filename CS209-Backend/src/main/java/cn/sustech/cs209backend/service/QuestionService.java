@@ -1,5 +1,6 @@
 package cn.sustech.cs209backend.service;
 
+import cn.sustech.cs209backend.config.MyException;
 import cn.sustech.cs209backend.dto.BugViewCount;
 import cn.sustech.cs209backend.dto.TagViewCount;
 import cn.sustech.cs209backend.entity.Question;
@@ -140,6 +141,38 @@ public class QuestionService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("tagName", tagName);
             jsonObject.put("questionCount", average_view_count);
+            resultList.add(jsonObject);
+        }
+        return resultList;
+    }
+
+    public List<JSONObject> KIntimateTags(String topic, int k) {
+        if (k<=0) throw new MyException(4, "k must be positive");
+        List<JSONObject> similarTags = KSimilarTags(topic, 1);
+        if (similarTags.isEmpty()) return new ArrayList<>();
+        String queryTagName = (String) similarTags.get(0).get("tagName");
+        // intimacy
+        List<Map> result = questionRepo.topKTagsByIntimacy(k, queryTagName);
+        List<JSONObject> resultList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("intimate_tag");
+            long intimacy = (long) map.get("intimacy");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("intimate_tag", tagName);
+            jsonObject.put("intimacy", intimacy);
+            resultList.add(jsonObject);
+        }
+        return resultList;
+    }
+
+    public List<JSONObject> KSimilarTags(String tagName, int k) {
+        List<Map> result = questionRepo.KSimilarTags(k, tagName);
+        List<JSONObject> resultList = new ArrayList<>();
+        for (Map map : result) {
+            String similarTagName = (String) map.get("similar_tag");
+            float similarity = (float) map.get("similarity_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tagName", similarTagName);
             resultList.add(jsonObject);
         }
         return resultList;
