@@ -2,6 +2,7 @@ package cn.sustech.cs209backend.controller;
 
 import cn.sustech.cs209backend.entity.Question;
 import cn.sustech.cs209backend.service.QuestionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/question")
 public class QuestionController {
 
