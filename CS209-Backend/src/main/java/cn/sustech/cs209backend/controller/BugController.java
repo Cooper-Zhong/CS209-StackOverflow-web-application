@@ -3,6 +3,7 @@ package cn.sustech.cs209backend.controller;
 import cn.sustech.cs209backend.dto.BugViewCount;
 import cn.sustech.cs209backend.service.QuestionService;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/bug")
 public class BugController {
 

@@ -23,7 +23,8 @@ export default defineComponent({
     axios.defaults.baseURL = appConfig.$apiBaseUrl;
     const {init} = useToast();
     const items = ref([]);
-    const getTopicsByAnswers = () => {
+    const getTopicsByScores = () => {
+      init("coming score")
       axios.post('/topKByAvgScore/10', {}, {})
           .then(response => {
             items.value = response.data.data
@@ -38,7 +39,7 @@ export default defineComponent({
           });
     };
     onMounted(() => {
-      getTopicsByAnswers();
+      getTopicsByScores();
     });
     return{
       items,

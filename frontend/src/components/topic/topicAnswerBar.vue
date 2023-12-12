@@ -24,17 +24,16 @@ export default defineComponent({
     const {init} = useToast();
     const items = ref([]);
     const getTopicsByAnswers = () => {
+      init("coming answer")
       axios.post('/topKByAnswerCount/10', {}, {})
           .then(response => {
             items.value = response.data.data
+            init("success")
           })
           .catch(error => {
             if (error.response) {
-              // 请求已发出，但服务器响应的状态码不在 2xx 范围内
               init({message: error.response.data.msg, color: "danger"})
-              // init({message: error.message, color: "danger"})
             } else {
-              // 一些错误是在设置请求的时候触发
               init({message: error.message, color: "danger"})
 
             }

@@ -23,10 +23,12 @@ export default defineComponent({
     axios.defaults.baseURL = appConfig.$apiBaseUrl;
     const {init} = useToast();
     const items = ref([]);
-    const getTopicsByAnswers = () => {
+    const getTopicsByQuestion = () => {
+      init("coming question")
       axios.post('/topKByQuestionCount/10', {}, {})
           .then(response => {
             items.value = response.data.data
+            init("success")
           })
           .catch(error => {
             if (error.response) {
@@ -38,7 +40,7 @@ export default defineComponent({
           });
     };
     onMounted(() => {
-      getTopicsByAnswers();
+      getTopicsByQuestion();
     });
     return{
       items,

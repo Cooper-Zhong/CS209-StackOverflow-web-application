@@ -1,0 +1,15 @@
+#logging:
+#  level:
+#    com:
+#      leshangju:
+#        prism:
+#          auth:
+#            dao: debug
+#          usershop:
+#            dao: debug
+#          loginuser:
+#            dao: debug
+#  file:
+#    name: logFile/sys.log
+
+
