@@ -42,5 +42,6 @@ const app = createApp(App);
 // )
 
 app.use(ElementPlus);
-app.config.globalProperties.$apiBaseUrl = 'http://localhost:8082';
+// app.config.globalProperties.$apiBaseUrl = 'http://localhost:8082';
+app.config.globalProperties.$apiBaseUrl = 'http://10.26.80.100:8080';
 app.mount('#app');
