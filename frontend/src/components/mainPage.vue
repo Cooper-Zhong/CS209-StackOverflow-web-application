@@ -11,20 +11,25 @@
           alt="StackOverflow logo"
       />
     </el-menu-item>
-    <div class="flex-grow"></div>
+    <div class="flex-grow"/>
   </el-menu>
   <div id="introduction">
     <introduction-page></introduction-page>
   </div>
-  <div class="cards-container">
-    <div class="chart_card">
-      <topic-answer-bar></topic-answer-bar>
-      <topic-score-bar></topic-score-bar>
-      <topic-question-bar-vue></topic-question-bar-vue>
-    </div>
-    <div class="chart_card">
-      <bug-radar></bug-radar>
-    </div>
+  <div class="chart_card">
+    <topic-answer-bar></topic-answer-bar>
+  </div>
+  <div class="chart_card">
+    <bug-radar></bug-radar>
+  </div>
+  <div class="chart_card">
+    <bug-radar3></bug-radar3>
+  </div>
+  <div class="chart_card">
+    <bug-radar-diagram></bug-radar-diagram>
+  </div>
+  <div class="chart_card">
+    <pie-chart-diagram></pie-chart-diagram>
   </div>
 </template>
 
@@ -32,16 +37,21 @@
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
 import bugRadar from './bug/bugRadar.vue';
-import topicQuestionBarVue from './topic/topicQuestionBar.vue';
-import topicScoreBar from './topic/topicScoreBar.vue';
+import bugRadar3 from './bug/bugRadar3.vue';
+import bugRadarDiagram from './bug/bugRadarDiagram.vue';
+import BugRadar3 from './bug/bugRadar3.vue';
+import pieChartDiagram from './bug/pieChartDiagram.vue'
 export default {
   name: 'mainPage',
   components: {
     introductionPage,
     topicAnswerBar,
-    topicQuestionBarVue,
-    topicScoreBar,
     bugRadar,
+    bugRadar3,
+    bugRadarDiagram,
+    BugRadar3,
+
+    pieChartDiagram,
 },
 }
 </script>
@@ -55,19 +65,8 @@ export default {
 }
 
 .chart_card {
-  display: flex;
-  justify-content: space-between; /* 或者其他适当的对齐方式 */
-  align-items: center;
-  justify-content: center;
-  border-radius: 60px;
-  /* background: #ebebeb; */
-  box-shadow:  8px 8px 9px #b3b3b3,
-               -8px -8px 9px #ffffff;
   position: relative;
-  width: 80%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 7%;
+  width: 40%;
   border-radius: 10px;
   padding: 2rem;
   color: #aaa;
@@ -95,10 +94,5 @@ export default {
 #introduction{
   margin-top: 60px;
   margin-bottom: 100px;
-}
-.cards-container{
-  display: flex;
-  flex-wrap: wrap;  /* 允许换行 */
-  justify-content: space-between;  /* 或者使用其他 justify-content 属性来调整子项之间的间距 */
 }
 </style>
