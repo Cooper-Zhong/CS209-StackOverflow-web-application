@@ -30,7 +30,7 @@
         axios.get('/bug/topKByQuestionCount/10', {}, {})
             .then(response => {
               items.value = response.data
-              init("question"+JSON.stringify(items.value))
+              // init("question"+JSON.stringify(items.value))
             })
             .catch(error => {
               if (error.response) {
