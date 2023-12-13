@@ -19,39 +19,38 @@
   <div class="chart_card">
     <topic-answer-bar></topic-answer-bar>
   </div>
-  <div class="chart_card">
-    <bug-radar></bug-radar>
-  </div>
-  <div class="chart_card">
-    <bug-radar3></bug-radar3>
-  </div>
-  <div class="chart_card">
-    <bug-radar-diagram></bug-radar-diagram>
-  </div>
-  <div class="chart_card">
-    <pie-chart-diagram></pie-chart-diagram>
-  </div>
+  <topic-question-bar></topic-question-bar>
+  <topic-score-bar></topic-score-bar>
+  
+  <bug-answer-bar></bug-answer-bar>
+  <bug-question-bar></bug-question-bar>
+  <bug-score-bar></bug-score-bar>
+  <bug-view-bar></bug-view-bar>
 </template>
 
 <script>
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
-import bugRadar from './bug/bugRadar.vue';
-import bugRadar3 from './bug/bugRadar3.vue';
-import bugRadarDiagram from './bug/bugRadarDiagram.vue';
-import BugRadar3 from './bug/bugRadar3.vue';
-import pieChartDiagram from './bug/pieChartDiagram.vue'
+import topicQuestionBar from './topic/topicQuestionBar.vue';
+import topicScoreBar from './topic/topicScoreBar.vue';
+import bugAnswerBar from './bug/bugAnswerBar.vue';
+import bugQuestionBar from './bug/bugQuestionBar.vue';
+import bugScoreBar from './bug/bugScoreBar.vue';
+import bugViewBar from './bug/bugViewBar.vue';
+
+
 export default {
   name: 'mainPage',
   components: {
     introductionPage,
     topicAnswerBar,
-    bugRadar,
-    bugRadar3,
-    bugRadarDiagram,
-    BugRadar3,
+    topicQuestionBar,
+    topicScoreBar,
 
-    pieChartDiagram,
+    bugAnswerBar,
+    bugQuestionBar,
+    bugScoreBar,
+    bugViewBar,
 },
 }
 </script>
