@@ -2,7 +2,10 @@
     <Bar
         id="my-chart-id"
         :options="chartOptions"
-        :data="chartData"
+        :data="{
+        labels: items.map(item=>item.bugName),
+        datasets: [ { data: items.map(item => item.questionCount) } ]
+      }"
     />
   </template>
   
@@ -24,9 +27,10 @@
       const {init} = useToast();
       const items = ref([]);
       const getBugsByQuestion = () => {
-        axios.post('/topKByQuestionCount/10', {}, {})
+        axios.get('/bug/topKByQuestionCount/10', {}, {})
             .then(response => {
-              items.value = response.data.data
+              items.value = response.data
+              init("question"+JSON.stringify(items.value))
             })
             .catch(error => {
               if (error.response) {
