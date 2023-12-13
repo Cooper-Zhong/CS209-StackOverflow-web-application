@@ -14,6 +14,11 @@ public class DatabaseService {
     private static final String DB_HOST = "10.26.80.100";
     private static final String DB_USER = "cooper";
     private static final String DB_PASSWORD = "cooper";
+
+//    private static final String DB_HOST = "localhost";
+//    private static final String DB_USER = "postgres";
+//    private static final String DB_PASSWORD = "Lhx13922727768";
+
     private static final String DB_DATABASE = "stackoverflow";
     private static final int DB_PORT = 5432;
 
