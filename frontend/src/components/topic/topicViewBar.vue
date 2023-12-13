@@ -1,11 +1,26 @@
 <template>
     <Bar
         id="my-chart-id"
-        :options="chartOptions"
         :data="{
-        labels: items.map(item=>item.bugName),
-        datasets: [ { data: items.map(item => item.averageScore) } ]
-      }"
+          labels: items.map(item=>item.tagName),
+          datasets: [ { 
+            label: '???????',
+            data: items.map(item => item.average_view_count),
+            backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED','#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED']
+           } ],
+        }"
+        :options="{//success!!!
+          plugins: {
+            legend: {
+              display:false,
+              position: 'bottom', // 设置图例位置（top, bottom, left, right）
+              labels: {
+                color: 'red', // 设置标签颜色
+                fontSize: 16, // 设置标签字体大小
+              },
+            },
+          },
+        }"
     />
   </template>
   
@@ -26,8 +41,8 @@
       axios.defaults.baseURL = appConfig.$apiBaseUrl;
       const {init} = useToast();
       const items = ref([]);
-      const getBugsByScore = () => {
-        axios.get('/bug/topKByAvgScore/10', {}, {})
+      const getTopicsByView = () => {
+        axios.get(`/topic/topKByViewCount/${10}`, {}, {})
             .then(response => {
               items.value = response.data
               // init(JSON.stringify(items.value))
@@ -45,7 +60,7 @@
             });
       };
       onMounted(() => {
-        getBugsByScore();
+        getTopicsByView();
       });
       return{
         items,
@@ -57,14 +72,6 @@
           labels: [ 'January', 'February', 'March' ],
           datasets: [ { data: [40, 20, 12] } ]
         },
-        chartOptions: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display:false,
-            },
-          },
-        }
       }
     }
   })
