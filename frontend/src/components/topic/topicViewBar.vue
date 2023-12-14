@@ -9,7 +9,7 @@
             backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED','#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED']
            } ],
         }"
-        :options="{//success!!!
+        :options="{
           plugins: {
             legend: {
               display:false,

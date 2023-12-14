@@ -59,7 +59,12 @@
             datasets: [ { data: [40, 20, 12] } ]
           },
           chartOptions: {
-            responsive: true
+            responsive: true,
+            plugins: {
+            legend: {
+              display:false,
+            },
+          },
           }
         }
       }

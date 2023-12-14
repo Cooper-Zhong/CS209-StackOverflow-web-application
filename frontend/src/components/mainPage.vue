@@ -27,6 +27,18 @@
   <bug-question-bar></bug-question-bar>
   <bug-score-bar></bug-score-bar>
   <bug-view-bar></bug-view-bar>
+
+  <topic-view-pie></topic-view-pie>
+  <topic-answer-pie></topic-answer-pie>
+  <topic-question-pie></topic-question-pie>
+  <topic-score-pie></topic-score-pie>
+
+  <bug-answer-pie></bug-answer-pie>
+  <bug-question-pie></bug-question-pie>
+  <bug-score-pie></bug-score-pie>
+  <bug-view-pie></bug-view-pie>
+
+  <!-- <test-echart-pie></test-echart-pie> -->
 </template>
 
 <script>
@@ -40,6 +52,16 @@ import bugQuestionBar from './bug/bugQuestionBar.vue';
 import bugScoreBar from './bug/bugScoreBar.vue';
 import bugViewBar from './bug/bugViewBar.vue';
 
+import topicViewPie from './topic/topicViewPie.vue';
+import topicAnswerPie from './topic/topicAnswerPie.vue';
+import topicQuestionPie from './topic/topicQuestionPie.vue';
+import topicScorePie from './topic/topicScorePie.vue';
+
+import bugAnswerPie from './bug/bugAnswerPie.vue';
+import bugQuestionPie from './bug/bugQuestionPie.vue';
+import bugScorePie from './bug/bugScorePie.vue';
+import bugViewPie from './bug/bugViewPie.vue';
+// import testEchartPie from "@/components/testEchartPie.vue";
 
 export default {
   name: 'mainPage',
@@ -50,10 +72,24 @@ export default {
     topicScoreBar,
     topicViewBar,
 
+    topicViewPie,
+    topicAnswerPie,
+    topicQuestionPie,
+    topicScorePie,
+
+
+    // testEchartPie,
+
+
     bugAnswerBar,
     bugQuestionBar,
     bugScoreBar,
     bugViewBar,
+
+    bugAnswerPie,
+    bugQuestionPie,
+    bugScorePie,
+    bugViewPie,
 },
 }
 </script>

@@ -19,6 +19,7 @@
     import {ref, defineComponent, onMounted, getCurrentInstance} from 'vue';
     import axios from "axios";
     import {useToast} from "vuestic-ui";
+import { useColorProps } from 'vuestic-ui/dist/types/composables';
     export default defineComponent({
       name: 'BarChart',
       components: { Bar },
