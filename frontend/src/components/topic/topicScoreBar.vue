@@ -2,7 +2,10 @@
   <Bar
       id="my-chart-id"
       :options="chartOptions"
-      :data="chartData"
+      :data="{
+        labels: items.map(item=>item.tagName),
+        datasets: [ { data: items.map(item => item.averageScore) } ]
+      }"
   />
 </template>
 
@@ -23,23 +26,26 @@ export default defineComponent({
     axios.defaults.baseURL = appConfig.$apiBaseUrl;
     const {init} = useToast();
     const items = ref([]);
-    const getTopicsByScores = () => {
-      init("coming score")
-      axios.post('/topKByAvgScore/10', {}, {})
+    const getTopicsByScore = () => {
+      axios.get('/topic/topKByAvgScore/10', {}, {})
           .then(response => {
-            items.value = response.data.data
+            items.value = response.data
+            // init(JSON.stringify(items.value))
           })
           .catch(error => {
             if (error.response) {
+              // 请求已发出，但服务器响应的状态码不在 2xx 范围内
               init({message: error.response.data.msg, color: "danger"})
+              // init({message: error.message, color: "danger"})
             } else {
+              // 一些错误是在设置请求的时候触发
               init({message: error.message, color: "danger"})
 
             }
           });
     };
     onMounted(() => {
-      getTopicsByScores();
+      getTopicsByScore();
     });
     return{
       items,
@@ -52,7 +58,12 @@ export default defineComponent({
         datasets: [ { data: [40, 20, 12] } ]
       },
       chartOptions: {
-        responsive: true
+        responsive: true,
+        plugins: {
+            legend: {
+              display:false,
+            },
+          },
       }
     }
   }
