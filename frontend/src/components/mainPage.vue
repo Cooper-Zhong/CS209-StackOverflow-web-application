@@ -11,37 +11,85 @@
           alt="StackOverflow logo"
       />
     </el-menu-item>
-    <div class="flex-grow"></div>
+    <div class="flex-grow"/>
   </el-menu>
   <div id="introduction">
     <introduction-page></introduction-page>
   </div>
-  <div class="cards-container">
-    <div class="chart_card">
-      <topic-answer-bar></topic-answer-bar>
-      <topic-score-bar></topic-score-bar>
-      <topic-question-bar-vue></topic-question-bar-vue>
-    </div>
-    <div class="chart_card">
-      <bug-radar></bug-radar>
-    </div>
+  <div class="chart_card">
+    <topic-answer-bar></topic-answer-bar>
   </div>
+  <topic-question-bar></topic-question-bar>
+  <topic-score-bar></topic-score-bar>
+  <topic-view-bar></topic-view-bar>
+  
+  <bug-answer-bar></bug-answer-bar>
+  <bug-question-bar></bug-question-bar>
+  <bug-score-bar></bug-score-bar>
+  <bug-view-bar></bug-view-bar>
+
+  <topic-view-pie></topic-view-pie>
+  <topic-answer-pie></topic-answer-pie>
+  <topic-question-pie></topic-question-pie>
+  <topic-score-pie></topic-score-pie>
+
+  <bug-answer-pie></bug-answer-pie>
+  <bug-question-pie></bug-question-pie>
+  <bug-score-pie></bug-score-pie>
+  <bug-view-pie></bug-view-pie>
+
+  <!-- <test-echart-pie></test-echart-pie> -->
 </template>
 
 <script>
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
-import bugRadar from './bug/bugRadar.vue';
-import topicQuestionBarVue from './topic/topicQuestionBar.vue';
+import topicQuestionBar from './topic/topicQuestionBar.vue';
 import topicScoreBar from './topic/topicScoreBar.vue';
+import topicViewBar from './topic/topicViewBar.vue';
+import bugAnswerBar from './bug/bugAnswerBar.vue';
+import bugQuestionBar from './bug/bugQuestionBar.vue';
+import bugScoreBar from './bug/bugScoreBar.vue';
+import bugViewBar from './bug/bugViewBar.vue';
+
+import topicViewPie from './topic/topicViewPie.vue';
+import topicAnswerPie from './topic/topicAnswerPie.vue';
+import topicQuestionPie from './topic/topicQuestionPie.vue';
+import topicScorePie from './topic/topicScorePie.vue';
+
+import bugAnswerPie from './bug/bugAnswerPie.vue';
+import bugQuestionPie from './bug/bugQuestionPie.vue';
+import bugScorePie from './bug/bugScorePie.vue';
+import bugViewPie from './bug/bugViewPie.vue';
+// import testEchartPie from "@/components/testEchartPie.vue";
+
 export default {
   name: 'mainPage',
   components: {
     introductionPage,
     topicAnswerBar,
-    topicQuestionBarVue,
+    topicQuestionBar,
     topicScoreBar,
-    bugRadar,
+    topicViewBar,
+
+    topicViewPie,
+    topicAnswerPie,
+    topicQuestionPie,
+    topicScorePie,
+
+
+    // testEchartPie,
+
+
+    bugAnswerBar,
+    bugQuestionBar,
+    bugScoreBar,
+    bugViewBar,
+
+    bugAnswerPie,
+    bugQuestionPie,
+    bugScorePie,
+    bugViewPie,
 },
 }
 </script>
@@ -55,19 +103,8 @@ export default {
 }
 
 .chart_card {
-  display: flex;
-  justify-content: space-between; /* 或者其他适当的对齐方式 */
-  align-items: center;
-  justify-content: center;
-  border-radius: 60px;
-  /* background: #ebebeb; */
-  box-shadow:  8px 8px 9px #b3b3b3,
-               -8px -8px 9px #ffffff;
   position: relative;
-  width: 80%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 7%;
+  width: 40%;
   border-radius: 10px;
   padding: 2rem;
   color: #aaa;
@@ -95,10 +132,5 @@ export default {
 #introduction{
   margin-top: 60px;
   margin-bottom: 100px;
-}
-.cards-container{
-  display: flex;
-  flex-wrap: wrap;  /* 允许换行 */
-  justify-content: space-between;  /* 或者使用其他 justify-content 属性来调整子项之间的间距 */
 }
 </style>

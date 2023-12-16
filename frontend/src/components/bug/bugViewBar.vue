@@ -2,7 +2,10 @@
     <Bar
         id="my-chart-id"
         :options="chartOptions"
-        :data="chartData"
+        :data="{
+        labels: items.map(item=>item.bugName),
+        datasets: [ { data: items.map(item => item.average_view_count) } ]
+      }"
     />
   </template>
   
@@ -24,9 +27,10 @@
       const {init} = useToast();
       const items = ref([]);
       const getBugsByView = () => {
-        axios.post('/topKByViewCount/10', {}, {})
+        axios.get(`/bug/topKByViewCount/${10}`, {}, {})
             .then(response => {
-              items.value = response.data.data
+              items.value = response.data
+              // init(JSON.stringify(items.value))
             })
             .catch(error => {
               if (error.response) {
@@ -54,7 +58,12 @@
           datasets: [ { data: [40, 20, 12] } ]
         },
         chartOptions: {
-          responsive: true
+          responsive: true,
+          plugins: {
+            legend: {
+              display:false,
+            },
+          },
         }
       }
     }
