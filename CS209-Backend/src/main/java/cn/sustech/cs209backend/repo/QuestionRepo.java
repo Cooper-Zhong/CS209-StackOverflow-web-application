@@ -104,5 +104,16 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
             "LIMIT :k", nativeQuery = true)
     List<Map> topKBugsByQuestionCount(@Param("k") Integer k);
 
+    @Query(value = "select bug_name, sum(count) as total_count " +
+            "from (select bug_name, count " +
+            "from questions_bugs " +
+            "union all " +
+            "select bug_name, count " +
+            "from answers_bugs) as combined_bugs " +
+            "group by bug_name " +
+            "order by total_count desc " +
+            "limit 10;", nativeQuery = true)
+    List<Map> topKBugsByAppearanceCount(@Param("k") Integer k);
+
 
 }

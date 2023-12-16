@@ -77,6 +77,11 @@ public class BugController {
         return questionService.topKBugsByQuestionCount(k);
     }
 
+    @GetMapping("/topKByAppearanceCount/{k}")
+    public List<JSONObject> topKBugsByAppearanceCount(@PathVariable int k) {
+        return questionService.topKBugsByAppearanceCount(k);
+    }
+
 
 }
 

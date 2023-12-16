@@ -9,12 +9,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.json.Json;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class QuestionService {
@@ -147,22 +145,67 @@ public class QuestionService {
     }
 
     public List<JSONObject> KIntimateTags(String topic, int k) {
+        // topic can be phrases
+        String[] topicArray = topic.split(" ");
         if (k<=0) throw new MyException(4, "k must be positive");
-        List<JSONObject> similarTags = KSimilarTags(topic, 1);
-        if (similarTags.isEmpty()) return new ArrayList<>();
-        String queryTagName = (String) similarTags.get(0).get("tagName");
-        // intimacy
-        List<Map> result = questionRepo.topKTagsByIntimacy(k, queryTagName);
         List<JSONObject> resultList = new ArrayList<>();
-        for (Map map : result) {
-            String tagName = (String) map.get("intimate_tag");
-            long intimacy = (long) map.get("intimacy");
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("intimate_tag", tagName);
-            jsonObject.put("intimacy", intimacy);
-            resultList.add(jsonObject);
+        List<JSONObject> queryTagList = new ArrayList<>(); //存查询的tag，最后要加入到resultList中
+        Set<String> tagNames = new HashSet<>();
+        int totalOccurrence = 0;
+        int minCoOccurrence = Integer.MAX_VALUE;
+        int maxCoOccurrence = Integer.MIN_VALUE;
+        for (String s : topicArray) {
+            List<JSONObject> similarTags = KSimilarTags(s, 1);
+            if (similarTags.isEmpty()) return new ArrayList<>();
+            String queryTagName = (String) similarTags.get(0).get("tagName");
+            queryTagList.add(similarTags.get(0));
+            // intimacy
+            tagNames.add(queryTagName);
+            List<Map> result = questionRepo.topKTagsByIntimacy(k, queryTagName);
+            for (Map map : result) {
+                String tagName = (String) map.get("intimate_tag");
+                if (tagNames.contains(tagName)) continue; // avoid duplicate
+                tagNames.add(tagName);
+                long intimacy = (long) map.get("intimacy");
+                // update
+                totalOccurrence += intimacy;
+                minCoOccurrence = Math.min(minCoOccurrence, (int) intimacy);
+                maxCoOccurrence = Math.max(maxCoOccurrence, (int) intimacy);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("intimate_tag", tagName);
+                jsonObject.put("intimacy", intimacy);
+                resultList.add(jsonObject);
+            }
         }
-        return resultList;
+        totalOccurrence += (maxCoOccurrence + 1)*queryTagList.size(); //用maxCoOccurrence+1作为queryTag的occurrence
+
+        // normalize
+        for (JSONObject jsonObject : resultList) {
+            long intimacy = (long) jsonObject.get("intimacy");
+            double normalizedIntimacy = normalize(intimacy, totalOccurrence);
+            jsonObject.put("intimacy", normalizedIntimacy);
+        }
+        // add query tag
+        for (JSONObject jsonObject : queryTagList) {
+            String queryTagName = (String) jsonObject.get("tagName");
+            double normalizedIntimacy = normalize(maxCoOccurrence + 1, totalOccurrence); // 把queryTag scale 到最大的co-occurrence
+            JSONObject queryTag = new JSONObject();
+            queryTag.put("intimate_tag", queryTagName);
+            queryTag.put("intimacy", normalizedIntimacy);
+            resultList.add(queryTag);
+        }
+        resultList.sort((o1, o2) -> {
+            double intimacy1 = (double) o1.get("intimacy");
+            double intimacy2 = (double) o2.get("intimacy");
+            if (intimacy1>intimacy2) return -1;
+            else if (intimacy1<intimacy2) return 1;
+            else return 0;
+        });
+        return resultList.subList(0, Math.min(k, resultList.size())); // 取前k个
+    }
+
+    private double normalize(double intimacy, double totalOccurrence) {
+        return intimacy/totalOccurrence;
     }
 
     public List<JSONObject> KSimilarTags(String tagName, int k) {
@@ -173,6 +216,7 @@ public class QuestionService {
             float similarity = (float) map.get("similarity_score");
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("tagName", similarTagName);
+            jsonObject.put("similarity", similarity);
             resultList.add(jsonObject);
         }
         return resultList;
@@ -285,6 +329,20 @@ public class QuestionService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("bugName", tagName);
             jsonObject.put("questionCount", average_view_count);
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKBugsByAppearanceCount(int k) {
+        List<Map> result = questionRepo.topKBugsByAppearanceCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            long average_view_count = (long) map.get("total_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("totalCount", average_view_count);
             tempList.add(jsonObject);
         }
         return tempList;
