@@ -18,6 +18,12 @@
     <introduction-page></introduction-page>
   </div>
   <div class="task">
+    <div class="username">Single Topic Popularity</div>
+    <br>
+    <single-topic></single-topic>
+  </div>
+  <!-- topic multiple -->
+  <div class="task">
       <div class="username">Topic Popularity</div>
       <br>
       <div class="mt-4">
@@ -85,8 +91,17 @@
           </div>
         </div>
       </div>
-    </div>
+  </div>
 
+  
+  <div class="task">
+    <div class="username">Single Bug Popularity</div>
+    <br>
+    <single-bug></single-bug>
+    <br>
+  </div>
+
+  <!-- bug multiple -->
   <div class="task">
     <div class="username">Bug Popularity</div>
     <br>
@@ -157,29 +172,51 @@
       </div>
     </div>
   </div>
-  
-  <topic-score-bar></topic-score-bar>
-  <topic-view-bar></topic-view-bar>
-  
-  <bug-answer-bar></bug-answer-bar>
-  <bug-question-bar></bug-question-bar>
-  <bug-score-bar></bug-score-bar>
-  <bug-view-bar></bug-view-bar>
-
-  <topic-view-pie></topic-view-pie>
-  <topic-answer-pie></topic-answer-pie>
-  <topic-question-pie></topic-question-pie>
-  <topic-score-pie></topic-score-pie>
-  <!-- <word-cloud></word-cloud> -->
-  <bug-answer-pie></bug-answer-pie>
-  <bug-question-pie></bug-question-pie>
-  <bug-score-pie></bug-score-pie>
-  <bug-view-pie></bug-view-pie>
 
   <!-- <test-echart-pie></test-echart-pie> -->
   <!-- <word-cloud></word-cloud> -->
-  <similar-topic></similar-topic>
-  <intimacy-topic></intimacy-topic>
+  <!-- <similar-topic></similar-topic>
+  <intimacy-topic></intimacy-topic> -->
+
+  <div class="task">
+    <div class="username">Relative Topic</div>
+    <br>
+    <div class="mt-4">
+        <el-input
+        v-model="topic"
+        placeholder="Please input a topic"
+        class="input-with-select"
+        >
+        </el-input>
+    </div>
+    <br>
+    <div class="tags">
+      <div class="tag">Similar Topic</div>
+    </div>
+    <br>
+    <div style="width: 100%;display: flex">
+      <div style="width: 50%;height: 100%">
+        <similar-topic></similar-topic>
+      </div>
+      <div style="width: 50%;height: 100%">
+        <similar-bar></similar-bar>
+      </div>
+    </div>
+    <br>
+    <div class="tags">
+      <div class="tag">Intimacy Topic</div>
+    </div>
+    <br>
+    <div style="width: 100%;display: flex">
+      <div style="width: 50%;height: 100%">
+        <intimacy-topic></intimacy-topic>
+      </div>
+      <div style="width: 50%;height: 100%">
+        <intimacy-bar></intimacy-bar>
+      </div>
+    </div>
+    <br>
+  </div>
 </template>
 
 <script>
@@ -204,9 +241,13 @@ import bugScorePie from './bug/bugScorePie.vue';
 import bugViewPie from './bug/bugViewPie.vue';
 // import testEchartPie from "@/components/testEchartPie.vue";
 import similarTopic from './revalent/similarTopic.vue';
+import similarBar from './revalent/similarBar.vue';
 import intimacyTopic from './revalent/intimacyTopic.vue';
+import intimacyBar from './revalent/intimacyBar.vue';
 // import inputPart from './inputPart.vue';
 // import wordCloud from './wordCloud.vue';
+import singleTopic from './single/singleTopic.vue';
+import singleBug from './single/singleBug.vue';
 
 export default {
   name: 'mainPage',
@@ -226,6 +267,8 @@ export default {
 
     // wordCloud,
     similarTopic,
+    similarBar,
+    intimacyBar,
     intimacyTopic,
 
 
@@ -241,6 +284,9 @@ export default {
     bugQuestionPie,
     bugScorePie,
     bugViewPie,
+
+    singleTopic,
+    singleBug,
 },
 }
 </script>
@@ -253,6 +299,8 @@ const selectBug = ref('');
 // const inputBug = ref('');
 const sizeTopic = ref(10);
 const sizeBug = ref(10);
+
+const topic = ref('');
 // const options = [
 //   {
 //     value: 1,
@@ -364,7 +412,7 @@ const sizeBug = ref(10);
 .tag {
   border-radius: 100px;
   padding: 4px 13px;
-  font-size: 12px;
+  font-size: 16px;
   color: #ffffff;
   background-color: #1389eb;
 }
