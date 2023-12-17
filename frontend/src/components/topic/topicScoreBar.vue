@@ -20,6 +20,9 @@ import axios from "axios";
 import {useToast} from "vuestic-ui";
 export default defineComponent({
   name: 'BarChart',
+  props: {
+    size: String,
+  },
   components: { Bar },
   setup(){
     const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
@@ -27,7 +30,7 @@ export default defineComponent({
     const {init} = useToast();
     const items = ref([]);
     const getTopicsByScore = () => {
-      axios.get('/topic/topKByAvgScore/10', {}, {})
+      axios.get(`/topic/topKByAvgScore/10`, {}, {})
           .then(response => {
             items.value = response.data
             // init(JSON.stringify(items.value))
