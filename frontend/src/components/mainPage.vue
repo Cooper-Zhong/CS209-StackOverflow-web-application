@@ -17,85 +17,147 @@
   <div id="introduction">
     <introduction-page></introduction-page>
   </div>
-  <div class="chart_card">
-    <topic-answer-bar></topic-answer-bar>
-  </div>
-
-    <div>
   <div class="task">
       <div class="username">Topic Popularity</div>
       <br>
       <div class="mt-4">
-    <el-input
-      v-model="inputTopic"
-      placeholder="Please input topic"
-      class="input-with-select"
-    >
-      <template #prepend>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Question Number" value="1" />
-          <el-option label="Answer Number" value="2" />
-          <el-option label="Average Score" value="3" />
-          <el-option label="View" value="4" />
-        </el-select>
-      </template>
-      <template #append>
-        <el-button :icon="Search" />
-      </template>
-    </el-input>
-  </div>
-      <topic-answer-bar></topic-answer-bar>
-      <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In massa ipsum, laoreet quis
-         mollis nec, feugiat in dui. Suspendisse et enim pretium, ullamcorper enim laoreet.</p>
-  </div>
+        <div style="display: flex;  margin-bottom:20px">
+          <div class="m-4" style="width: 50%;height: 100%">
+            <p>Standard</p>
+            <el-select v-model="selectTopic" placeholder="Select" style="width: 50%">
+              <el-option label="Question Number" value="1" />
+              <el-option label="Answer Number" value="2" />
+              <el-option label="Average Score" value="3" />
+              <el-option label="View" value="4" />
+            </el-select>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <p>Number (1-10)</p>
+            <el-input-number v-model="sizeTopic" :min="1" :max="10" @change="handleChange" />
+          </div>
+        </div>
+      </div>
+      <div v-if="selectTopic === '1'"> 
+        Standard: Question Number
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <topic-question-bar></topic-question-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <topic-question-pie></topic-question-pie>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="selectTopic === '2'">
+        Standard: Answer Number
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <topic-answer-bar></topic-answer-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <topic-answer-pie></topic-answer-pie>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="selectTopic === '3'">
+        Standard: Average Score
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <topic-score-bar></topic-score-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <topic-score-pie></topic-score-pie>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="selectTopic === '4'">
+        Standard: View Count
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <topic-view-bar></topic-view-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <topic-view-pie></topic-view-pie>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <div class="task">
-      <div class="username">Bug Popularity</div>
+    <div class="username">Bug Popularity</div>
+    <br>
+    <div class="mt-4">
+        <div style="display: flex;  margin-bottom:20px">
+          <div class="m-4" style="width: 50%;height: 100%">
+            <p>Standard</p>
+            <el-select v-model="selectBug" placeholder="Select" style="width: 50%">
+              <el-option label="Question Number" value="1" />
+              <el-option label="Answer Number" value="2" />
+              <el-option label="Average Score" value="3" />
+              <el-option label="View" value="4" />
+            </el-select>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <p>Number (1-10)</p>
+            <el-input-number v-model="sizeBug" :min="1" :max="10" @change="handleChange" />
+          </div>
+        </div>
+    </div>
+      <!-- <el-button :icon="Search" /> -->
+    <div v-if="selectBug === '1'"> 
+      Standard: Question Number
       <br>
-      <div class="mt-4">
-    <el-input
-      v-model="inputBug"
-      placeholder="Please input bug"
-      class="input-with-select"
-    >
-      <template #prepend>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Question Number" value="1" />
-          <el-option label="Answer Number" value="2" />
-          <el-option label="Average Score" value="3" />
-          <el-option label="View" value="4" />
-        </el-select>
-      </template>
-      <template #append>
-        <el-button :icon="Search" />
-      </template>
-    </el-input>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-question-bar></bug-question-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-question-pie></bug-question-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBug === '2'">
+      Standard: Answer Number
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-answer-bar></bug-answer-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-answer-pie></bug-answer-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBug === '3'">
+      Standard: Average Score
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-score-bar></bug-score-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-score-pie></bug-score-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBug === '4'">
+      Standard: View Count
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-view-bar></bug-view-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-view-pie></bug-view-pie>
+        </div>
+      </div>
+    </div>
   </div>
-      <topic-answer-bar></topic-answer-bar>
-      <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In massa ipsum, laoreet quis
-         mollis nec, feugiat in dui. Suspendisse et enim pretium, ullamcorper enim laoreet.</p>
-  </div>
-</div>
-  <el-input
-      v-model="inputBug"
-      placeholder="Please input bug"
-      class="input-with-select"
-    >
-      <template #prepend>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Question Number" value="1" />
-          <el-option label="Answer Number" value="2" />
-          <el-option label="Average Score" value="3" />
-          <el-option label="View" value="4" />
-        </el-select>
-      </template>
-      <template #append>
-        <el-button :icon="Search" />
-      </template>
-    </el-input>
-
-
-  <topic-question-bar></topic-question-bar>
+  
   <topic-score-bar></topic-score-bar>
   <topic-view-bar></topic-view-bar>
   
@@ -184,10 +246,55 @@ export default {
 </script>
 <script setup>
 import { ref } from 'vue'
-import { Search } from '@element-plus/icons-vue'
-const inputTopic = ref('');
-const select = ref('');
-const inputBug = ref('');
+// import { Search } from '@element-plus/icons-vue'
+// const inputTopic = ref('');
+const selectTopic = ref('');
+const selectBug = ref('');
+// const inputBug = ref('');
+const sizeTopic = ref(10);
+const sizeBug = ref(10);
+// const options = [
+//   {
+//     value: 1,
+//     label: '1',
+//   },
+//   {
+//     value: 2,
+//     label: '2',
+//   },
+//   {
+//     value: 3,
+//     label: '3',
+//   },
+//   {
+//     value: 4,
+//     label: '4',
+//   },
+//   {
+//     value: 5,
+//     label: '5',
+//   },
+//   {
+//     value: 6,
+//     label: '6',
+//   },
+//   {
+//     value: 7,
+//     label: '7',
+//   },
+//   {
+//     value: 8,
+//     label: '8',
+//   },
+//   {
+//     value: 9,
+//     label: '9',
+//   },
+//   {
+//     value: 10,
+//     label: '10',
+//   },
+// ]
 </script>
 
 <style scoped>
@@ -228,20 +335,24 @@ const inputBug = ref('');
 
 .task {
   margin: 5%;
+  /* margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%; */
   position: relative;
   color: #2e2e2f;
   /* cursor: move; */
   background-color: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+  box-shadow: rgba(115, 114, 114, 0.3) 1px 2px 8px 2px;
   margin-bottom: 1rem;
   border: 3px dashed transparent;
-  max-width: 350px;
+  max-width: 90%;
 }
 
 .task:hover {
-  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.1) 2px 2px 8px 8px;
   /* border-color: rgba(162, 179, 207, 0.2) !important; */
 }
 
