@@ -12,7 +12,7 @@ import {
 } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import VueECharts from 'vue-echarts';
-import VChart, { THEME_KEY } from 'vue-echarts';
+import { THEME_KEY } from 'vue-echarts';
 import { onMounted,ref,provide } from 'vue';
 
 use([TitleComponent, TooltipComponent, LegendComponent, RadarChart, CanvasRenderer]);

@@ -47,6 +47,8 @@ const initDimension = (chartData) => {
   var option;
 
   option = {
+    color:['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
+             '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF'],
   tooltip: {
       trigger: 'item'
   },

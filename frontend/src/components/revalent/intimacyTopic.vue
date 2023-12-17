@@ -1,7 +1,6 @@
 <template>
     <div style="width: 100%;height: 60vh;display: flex; justify-content: center; align-items: center;">
         <div style="width: 100%;height: 100%;">
-            <!-- hello??? -->
             <div id="wordcloudIntimacy" style="height: 100%;width: 100%"></div>
         </div>
     </div>

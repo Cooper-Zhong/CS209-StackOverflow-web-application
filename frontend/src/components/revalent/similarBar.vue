@@ -3,13 +3,13 @@
         id="my-chart-id"
         :options="chartOptions"
         :data="{
-        labels: items.map(item=>item.bugName),
-        datasets: [ { 
-          data: items.map(item => item.averageScore),
-          backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
+          labels: items.map(item=>item.tagName),
+          datasets: [ { 
+            data: items.map(item => item.similarity),
+            backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
              '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
-        } ]
-      }"
+          } ]
+        }"
     />
   </template>
   
@@ -30,26 +30,30 @@
       axios.defaults.baseURL = appConfig.$apiBaseUrl;
       const {init} = useToast();
       const items = ref([]);
-      const getBugsByScore = () => {
-        axios.get('/bug/topKByAvgScore/10', {}, {})
-            .then(response => {
-              items.value = response.data
-              // init(JSON.stringify(items.value))
-            })
-            .catch(error => {
-              if (error.response) {
-                // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-                init({message: error.response.data.msg, color: "danger"})
-                // init({message: error.message, color: "danger"})
-              } else {
-                // 一些错误是在设置请求的时候触发
-                init({message: error.message, color: "danger"})
-  
-              }
-            });
-      };
+      const getSimilar = () => {
+        axios.get(`/topic/similar`, {
+            params: {
+                k: 10,      // 可选
+                topic: 'java'  // 可选
+            }
+        }, {})
+        .then(response => {
+            items.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+
+            }
+        });
+    };
       onMounted(() => {
-        getBugsByScore();
+        getSimilar();
       });
       return{
         items,
@@ -64,10 +68,10 @@
         chartOptions: {
           responsive: true,
           plugins: {
-            legend: {
-              display:false,
+              legend: {
+                display:false,
+              },
             },
-          },
         }
       }
     }
