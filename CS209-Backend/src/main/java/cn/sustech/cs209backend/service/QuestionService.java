@@ -349,4 +349,176 @@ public class QuestionService {
     }
 
 
+    // exception ------------------------------------------------------
+    public List<BugViewCount> topKExceptionsByViewCount(int k) {
+        List<Map> result = questionRepo.topKExceptionsByViewCount(k);
+        List<BugViewCount> bugViewCounts = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_view_count");
+            bugViewCounts.add(new BugViewCount(tagName, average_view_count.intValue()));
+        }
+        return bugViewCounts;
+    }
+
+    public List<JSONObject> topKExceptionsByAnswerCount(int k) {
+        List<Map> result = questionRepo.topKExceptionsByAnswerCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_answer_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageAnswerCount", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKExceptionsByAvgScore(int k) {
+        List<Map> result = questionRepo.topKExceptionsByAvgScore(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageScore", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKExceptionsByQuestionCount(int k) {
+        List<Map> result = questionRepo.topKExceptionsByQuestionCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            long average_view_count = (long) map.get("question_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("questionCount", average_view_count);
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+
+
+    // fatal error ------------------------------------------------------
+
+    public List<BugViewCount> topKFatalErrorByViewCount(int k) {
+        List<Map> result = questionRepo.topKFatalErrorByViewCount(k);
+        List<BugViewCount> bugViewCounts = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_view_count");
+            bugViewCounts.add(new BugViewCount(tagName, average_view_count.intValue()));
+        }
+        return bugViewCounts;
+    }
+
+    public List<JSONObject> topKFatalErrorByAnswerCount(int k) {
+        List<Map> result = questionRepo.topKFatalErrorByAnswerCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_answer_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageAnswerCount", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKFatalErrorByAvgScore(int k) {
+        List<Map> result = questionRepo.topKFatalErrorByAvgScore(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageScore", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKFatalErrorByQuestionCount(int k) {
+        List<Map> result = questionRepo.topKFatalErrorByQuestionCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            long average_view_count = (long) map.get("question_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("questionCount", average_view_count);
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+
+
+    // syntax error ------------------------------------------------------
+
+    public List<BugViewCount> topKSyntaxErrorByViewCount(int k) {
+        List<Map> result = questionRepo.topKSyntaxErrorByViewCount(k);
+        List<BugViewCount> bugViewCounts = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_view_count");
+            bugViewCounts.add(new BugViewCount(tagName, average_view_count.intValue()));
+        }
+        return bugViewCounts;
+    }
+
+    public List<JSONObject> topKSyntaxErrorByAnswerCount(int k) {
+        List<Map> result = questionRepo.topKSyntaxErrorByAnswerCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_answer_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageAnswerCount", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKSyntaxErrorByAvgScore(int k) {
+        List<Map> result = questionRepo.topKSyntaxErrorByAvgScore(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            BigDecimal average_view_count = (BigDecimal) map.get("average_score");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("averageScore", average_view_count.intValue());
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+    public List<JSONObject> topKSyntaxErrorByQuestionCount(int k) {
+        List<Map> result = questionRepo.topKSyntaxErrorByQuestionCount(k);
+        List<JSONObject> tempList = new ArrayList<>();
+        for (Map map : result) {
+            String tagName = (String) map.get("bug_name");
+            long average_view_count = (long) map.get("question_count");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bugName", tagName);
+            jsonObject.put("questionCount", average_view_count);
+            tempList.add(jsonObject);
+        }
+        return tempList;
+    }
+
+
+
+
+
 }

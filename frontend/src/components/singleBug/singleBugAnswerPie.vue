@@ -1,13 +1,15 @@
 <template>
   <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
+  <br>
 </template>
-
+  
 <script>
 import {ref, defineComponent, onMounted, getCurrentInstance, watch, defineProps} from 'vue';
 import axios from "axios";
 import {useToast} from "vuestic-ui";
 export default defineComponent({
   props:{
+    type: String,
     kIn: Number,
   },
 })
@@ -15,20 +17,19 @@ export default defineComponent({
   
 <script setup>
 import * as echarts from "echarts";
-
-const props = defineProps(['kIn']);
 const evaluationDimension = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
-const getBugsByAppearance = () => {
-  axios.get(`/bug/topKByAppearanceCount/${props['kIn']}`, {}, {})
+const props = defineProps(['kIn','type']);
+const getBugsByAnswers = () => {
+  axios.get(`/${props['type']}/topKByAnswerCount/${props['kIn']}`, {}, {})
   .then(response => {
       items.value = response.data
       chartData.value = items.value.map(item => ({
-          value: item.totalCount,
+          value: item.averageAnswerCount,
           name: item.bugName
       }));
       // init(JSON.stringify(chartData.value))
@@ -48,12 +49,11 @@ const getBugsByAppearance = () => {
   });
 };
 onMounted(() => {
-  getBugsByAppearance()
+  getBugsByAnswers()
 });
-watch(() => [props['kIn']], () => {
-  getBugsByAppearance();
+watch(() => [props['type'], props['kIn']], () => {
+  getBugsByAnswers();
 });
-
 
 const initDimension = (chartData) => {
   var myChart = echarts.init(evaluationDimension.value);
@@ -75,7 +75,7 @@ const initDimension = (chartData) => {
   },
   series: [
       {
-      name: 'Access From',
+      name: 'Bug Answer Count',
       type: 'pie',
       radius: ['40%', '60%'],
       avoidLabelOverlap: false,
@@ -94,4 +94,3 @@ const initDimension = (chartData) => {
 }
 
 </script>
-

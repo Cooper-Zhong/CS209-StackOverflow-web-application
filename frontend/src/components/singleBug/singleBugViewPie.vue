@@ -1,34 +1,35 @@
 <template>
   <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
 </template>
-
+  
 <script>
 import {ref, defineComponent, onMounted, getCurrentInstance, watch, defineProps} from 'vue';
 import axios from "axios";
 import {useToast} from "vuestic-ui";
 export default defineComponent({
   props:{
+    type: String,
     kIn: Number,
   },
 })
 </script>
-  
+
 <script setup>
 import * as echarts from "echarts";
+const props = defineProps(['kIn','type']);
 
-const props = defineProps(['kIn']);
 const evaluationDimension = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
-const getBugsByAppearance = () => {
-  axios.get(`/bug/topKByAppearanceCount/${props['kIn']}`, {}, {})
+const getBugsByView = () => {
+  axios.get(`/${props['type']}/topKByViewCount/${props['kIn']}`, {}, {})
   .then(response => {
       items.value = response.data
       chartData.value = items.value.map(item => ({
-          value: item.totalCount,
+          value: item.average_view_count,
           name: item.bugName
       }));
       // init(JSON.stringify(chartData.value))
@@ -48,10 +49,10 @@ const getBugsByAppearance = () => {
   });
 };
 onMounted(() => {
-  getBugsByAppearance()
+  getBugsByView()
 });
-watch(() => [props['kIn']], () => {
-  getBugsByAppearance();
+watch(() => [props['kIn'], props['type']], () => {
+  getBugsByView();
 });
 
 
@@ -66,12 +67,12 @@ const initDimension = (chartData) => {
       trigger: 'item'
   },
   legend: {
-      type: 'scroll',
-      orient: 'vertical',
-      top: 220,
-      // left: 10,
+    type: 'scroll',
+    orient: 'vertical',
+    right: 10,
+    top: 220,
       // top: '5%',
-      left: 'center'
+      // left: 'center'
   },
   series: [
       {
