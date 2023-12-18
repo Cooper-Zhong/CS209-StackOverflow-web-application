@@ -26,6 +26,7 @@
   <div class="task">
       <div class="username">Topic Popularity</div>
       <br>
+      <br>
       <div class="mt-4">
         <div style="display: flex;  margin-bottom:20px">
           <div class="m-4" style="width: 50%;height: 100%">
@@ -46,6 +47,7 @@
       <div v-if="selectTopic === '1'"> 
         Standard: Question Number
         <br>
+        <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
             <topic-question-bar :kIn="sizeTopic"></topic-question-bar>
@@ -57,6 +59,7 @@
       </div>
       <div v-else-if="selectTopic === '2'">
         Standard: Answer Number
+        <br>
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
@@ -70,6 +73,7 @@
       <div v-else-if="selectTopic === '3'">
         Standard: Average Score
         <br>
+        <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
             <topic-score-bar :kIn="sizeTopic"></topic-score-bar>
@@ -81,6 +85,7 @@
       </div>
       <div v-else-if="selectTopic === '4'">
         Standard: View Count
+        <br>
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
@@ -114,6 +119,7 @@
               <el-option label="Answer Number" value="2" />
               <el-option label="Average Score" value="3" />
               <el-option label="View" value="4" />
+              <el-option label="Appearance" value="5" />
             </el-select>
           </div>
           <div style="width: 50%;height: 100%">
@@ -124,6 +130,7 @@
     </div>
     <div v-if="selectBug === '1'"> 
       Standard: Question Number
+      <br>
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
@@ -137,6 +144,7 @@
     <div v-else-if="selectBug === '2'">
       Standard: Answer Number
       <br>
+      <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
           <bug-answer-bar :kIn="sizeBug"></bug-answer-bar>
@@ -148,6 +156,7 @@
     </div>
     <div v-else-if="selectBug === '3'">
       Standard: Average Score
+      <br>
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
@@ -161,12 +170,26 @@
     <div v-else-if="selectBug === '4'">
       Standard: View Count
       <br>
+      <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
           <bug-view-bar :kIn="sizeBug"></bug-view-bar>
         </div>
         <div style="width: 50%;height: 100%">
           <bug-view-pie :kIn="sizeBug"></bug-view-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBug === '5'">
+      Standard: Appearance Count
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-appearance-bar :kIn="sizeBug"></bug-appearance-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-appearance-pie :kIn="sizeBug"></bug-appearance-pie>
         </div>
       </div>
     </div>
@@ -247,6 +270,7 @@ import bugAnswerBar from './bug/bugAnswerBar.vue';
 import bugQuestionBar from './bug/bugQuestionBar.vue';
 import bugScoreBar from './bug/bugScoreBar.vue';
 import bugViewBar from './bug/bugViewBar.vue';
+import bugAppearanceBar from './bug/bugAppearanceBar.vue';
 
 import topicViewPie from './topic/topicViewPie.vue';
 import topicAnswerPie from './topic/topicAnswerPie.vue';
@@ -257,6 +281,8 @@ import bugAnswerPie from './bug/bugAnswerPie.vue';
 import bugQuestionPie from './bug/bugQuestionPie.vue';
 import bugScorePie from './bug/bugScorePie.vue';
 import bugViewPie from './bug/bugViewPie.vue';
+import bugAppearancePie from './bug/bugAppearancePie.vue';
+
 import similarTopic from './revalent/similarTopic.vue';
 import similarBar from './revalent/similarBar.vue';
 import intimacyTopic from './revalent/intimacyTopic.vue';
@@ -294,11 +320,13 @@ export default {
     bugQuestionBar,
     bugScoreBar,
     bugViewBar,
+    bugAppearanceBar,
 
     bugAnswerPie,
     bugQuestionPie,
     bugScorePie,
     bugViewPie,
+    bugAppearancePie,
 
     singleTopic,
     singleBug,

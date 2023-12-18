@@ -1,5 +1,5 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 260px"></div>
+  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
 </template>
 
 
@@ -66,14 +66,18 @@ const initDimension = (chartData) => {
       trigger: 'item'
   },
   legend: {
-      top: '5%',
-      left: 'center'
+    type: 'scroll',
+    orient: 'vertical',
+    top: 220,
+    // left: 10,
+    // top: '5%',
+    left: 'center'
   },
   series: [
       {
       name: 'Access From',
       type: 'pie',
-      radius: ['40%', '70%'],
+      radius: ['40%', '60%'],
       avoidLabelOverlap: false,
       label: {
           show: false,
