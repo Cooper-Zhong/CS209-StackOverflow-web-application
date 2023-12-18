@@ -8,10 +8,12 @@
             <template #append>
                 <el-button 
                     :icon="Search" 
-                    @click="searchTopic"
+                    @click="searchBug"
                 />
             </template>
-        </el-input>        
+        </el-input>
+        <br>
+        <br>        
         <div v-if="searched">
             <el-descriptions title="User Info">
                 <el-descriptions-item label="Question Count">
@@ -33,6 +35,7 @@
     
   <script setup>
   import { Search } from '@element-plus/icons-vue'
+  import { ElNotification } from 'element-plus'
   import { ref, getCurrentInstance } from "vue";
   import axios from "axios";
   import {useToast} from "vuestic-ui";
@@ -50,104 +53,112 @@
   const bugName = ref('');
 
 
-  const searchTopic = () => {
-    //answer
-    axios.get(`/bug/avgAnswerCount/${bugName.value}`, {}, {})
-    .then(response => {
-        avgAnswerCount.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-  
-        }
-    });
-    //total answer
-    axios.get(`/bug/totalAnswerCount/${bugName.value}`, {}, {})
-    .then(response => {
-        totalAnswerCount.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-  
-        }
-    });
-    //view
-    axios.get(`/bug/avgViewCount/${bugName.value}`, {}, {})
-    .then(response => {
-        avgViewCount.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-        }
-    });
-    //total question
-    axios.get(`/bug/bugQuestionCount/${bugName.value}`, {}, {})
-    .then(response => {
-        bugQuestionCount.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-  
-        }
-    });
-    //total score
-    axios.get(`/bug/totalScore/${bugName.value}`, {}, {})
-    .then(response => {
-        totalScore.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-  
-        }
-    });
-    //avg score
-    axios.get(`/bug/avgScore/${bugName.value}`, {}, {})
-    .then(response => {
-        avgScore.value = response.data
-    })
-    .catch(error => {
-        if (error.response) {
-        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-        init({message: error.response.data.msg, color: "danger"})
-        // init({message: error.message, color: "danger"})
-        } else {
-        // 一些错误是在设置请求的时候触发
-        init({message: error.message, color: "danger"})
-  
-        }
-    });
-
-    searched.value=true;
+  const searchBug = () => {
+    if(bugName.value===''||bugName.value === null || bugName.value === undefined){
+        ElNotification({
+            title: 'Error',
+            message: 'You should input at least one letter.',
+            type: 'error',
+        })
+    }
+    else{
+        //answer
+        axios.get(`/bug/avgAnswerCount/${bugName.value}`, {}, {})
+        .then(response => {
+            avgAnswerCount.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+    
+            }
+        });
+        //total answer
+        axios.get(`/bug/totalAnswerCount/${bugName.value}`, {}, {})
+        .then(response => {
+            totalAnswerCount.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+    
+            }
+        });
+        //view
+        axios.get(`/bug/avgViewCount/${bugName.value}`, {}, {})
+        .then(response => {
+            avgViewCount.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+            }
+        });
+        //total question
+        axios.get(`/bug/bugQuestionCount/${bugName.value}`, {}, {})
+        .then(response => {
+            bugQuestionCount.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+    
+            }
+        });
+        //total score
+        axios.get(`/bug/totalScore/${bugName.value}`, {}, {})
+        .then(response => {
+            totalScore.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+    
+            }
+        });
+        //avg score
+        axios.get(`/bug/avgScore/${bugName.value}`, {}, {})
+        .then(response => {
+            avgScore.value = response.data
+        })
+        .catch(error => {
+            if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            init({message: error.response.data.msg, color: "danger"})
+            // init({message: error.message, color: "danger"})
+            } else {
+            // 一些错误是在设置请求的时候触发
+            init({message: error.message, color: "danger"})
+    
+            }
+        });
+        searched.value=true;
+    }
   };
 </script>
   

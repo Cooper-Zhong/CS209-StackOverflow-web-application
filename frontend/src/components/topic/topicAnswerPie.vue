@@ -1,13 +1,22 @@
 <template>
   <div ref="evaluationDimension" style="width: 100%; height: 260px"></div>
 </template>
-  
-<script setup>
-import * as echarts from "echarts";
-import { ref, onMounted, getCurrentInstance } from "vue";
+
+
+<script>
+import {ref, defineComponent, onMounted, getCurrentInstance, watch, defineProps} from 'vue';
 import axios from "axios";
 import {useToast} from "vuestic-ui";
+export default defineComponent({
+  props:{
+    kIn: Number,
+  },
+})
+</script>
 
+<script setup>
+import * as echarts from "echarts";
+const props = defineProps(['kIn']);
 const evaluationDimension = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
@@ -15,7 +24,7 @@ const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const getTopicsByAnswers = () => {
-  axios.get(`/topic/topKByAnswerCount/${10}`, {}, {})
+  axios.get(`/topic/topKByAnswerCount/${props['kIn']}`, {}, {})
   .then(response => {
       items.value = response.data
       chartData.value = items.value.map(item => ({
@@ -40,6 +49,9 @@ const getTopicsByAnswers = () => {
 };
 onMounted(() => {
   getTopicsByAnswers()
+});
+watch(() => [props['kIn']], () => {
+  getTopicsByAnswers();
 });
 
 const initDimension = (chartData) => {

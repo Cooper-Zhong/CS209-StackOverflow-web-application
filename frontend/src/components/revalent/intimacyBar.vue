@@ -1,4 +1,7 @@
 <template>
+  <!-- {{ topicIn }}
+  {{ topic }}
+  {{ searched }} -->
     <Bar
         id="my-chart-id"
         :options="chartOptions"
@@ -19,22 +22,33 @@
   
   ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
   
-  import {ref, defineComponent, onMounted, getCurrentInstance} from 'vue';
+  import {ref, defineComponent, onMounted, getCurrentInstance, watch} from 'vue';
   import axios from "axios";
   import {useToast} from "vuestic-ui";
   export default defineComponent({
     name: 'BarChart',
+    props: {
+      topicIn: String, // 声明 topicIn 为字符串类型
+      searched: Boolean,
+      kIn : Number,
+    },
     components: { Bar },
-    setup(){
+    setup(props){
       const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
       axios.defaults.baseURL = appConfig.$apiBaseUrl;
       const {init} = useToast();
       const items = ref([]);
+      const topic = ref('java')
+      const k = ref(10)
       const getIntimacy = () => {
+        if(props.searched) {
+          topic.value=props.topicIn;
+          k.value = props.kIn;
+        }
         axios.get('/topic/intimacy', {
             params: {
-                k: 10,      // 可选
-                topic: 'java'  // 可选
+                k: k.value,    // 可选
+                topic: topic.value  // 可选
             }
             }, {})
             .then(response => {
@@ -53,11 +67,16 @@
               }
             });
       };
+      // 使用 watch 函数监测 props 的变化
+      watch(() => [props.topicIn, props.searched, props.kIn], () => {
+        getIntimacy();
+      });
       onMounted(() => {
         getIntimacy();
       });
       return{
         items,
+        topic,
       };
     },
     data() {
