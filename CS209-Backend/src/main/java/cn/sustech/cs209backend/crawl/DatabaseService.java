@@ -4,10 +4,12 @@ import cn.sustech.cs209backend.entity.User;
 
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.Map;
 
+@Slf4j
 public class DatabaseService {
 
     private Connection connection;
@@ -171,7 +173,8 @@ public class DatabaseService {
             );
             return true;
         } catch (SQLException e) {
-            System.out.println("Cannot connect to the database.");
+//            System.out.println("Cannot connect to the database.");
+            log.error("Cannot connect to the database.");
             e.printStackTrace();
             return false;
         }
@@ -185,7 +188,8 @@ public class DatabaseService {
         try {
             connection.close();
         } catch (SQLException e) {
-            System.out.println("Cannot close the connection.");
+//            System.out.println("Cannot close the connection.");
+            log.error("Cannot close the connection.");
             e.printStackTrace();
         }
     }
@@ -195,7 +199,8 @@ public class DatabaseService {
         try {
             return connection.prepareStatement(sql);
         } catch (SQLException e) {
-            System.out.println("Cannot prepare the statement.");
+//            System.out.println("Cannot prepare the statement.");
+            log.error("Cannot prepare the statement.");
             e.printStackTrace();
             return null;
         }
