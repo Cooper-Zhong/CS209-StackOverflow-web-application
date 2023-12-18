@@ -19,19 +19,22 @@
   
   ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
   
-  import {ref, defineComponent, onMounted, getCurrentInstance} from 'vue';
+  import {ref, defineComponent, onMounted, getCurrentInstance, watch} from 'vue';
   import axios from "axios";
   import {useToast} from "vuestic-ui";
   export default defineComponent({
     name: 'BarChart',
     components: { Bar },
-    setup(){
+    props:{
+      kIn: Number,
+    },
+    setup(props){
       const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
       axios.defaults.baseURL = appConfig.$apiBaseUrl;
       const {init} = useToast();
       const items = ref([]);
       const getBugsByScore = () => {
-        axios.get('/bug/topKByAvgScore/10', {}, {})
+        axios.get(`/bug/topKByAvgScore/${props.kIn}`, {}, {})
             .then(response => {
               items.value = response.data
               // init(JSON.stringify(items.value))
@@ -49,6 +52,9 @@
             });
       };
       onMounted(() => {
+        getBugsByScore();
+      });
+      watch(() => [props.kIn], () => {
         getBugsByScore();
       });
       return{

@@ -38,8 +38,8 @@
             </el-select>
           </div>
           <div style="width: 50%;height: 100%">
-            <p>Number (1-10)</p>
-            <el-input-number v-model="sizeTopic" :min="1" :max="10" @change="handleChange" />
+            <p>Number (1-15)</p>
+            <el-input-number v-model="sizeTopic" :min="1" :max="15" @change="handleChange" />
           </div>
         </div>
       </div>
@@ -48,10 +48,10 @@
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
-            <topic-question-bar></topic-question-bar>
+            <topic-question-bar :kIn="sizeTopic"></topic-question-bar>
           </div>
           <div style="width: 50%;height: 100%">
-            <topic-question-pie></topic-question-pie>
+            <topic-question-pie :kIn="sizeTopic"></topic-question-pie>
           </div>
         </div>
       </div>
@@ -60,10 +60,10 @@
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
-            <topic-answer-bar></topic-answer-bar>
+            <topic-answer-bar :kIn="sizeTopic"></topic-answer-bar>
           </div>
           <div style="width: 50%;height: 100%">
-            <topic-answer-pie></topic-answer-pie>
+            <topic-answer-pie :kIn="sizeTopic"></topic-answer-pie>
           </div>
         </div>
       </div>
@@ -72,10 +72,10 @@
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
-            <topic-score-bar></topic-score-bar>
+            <topic-score-bar :kIn="sizeTopic"></topic-score-bar>
           </div>
           <div style="width: 50%;height: 100%">
-            <topic-score-pie></topic-score-pie>
+            <topic-score-pie :kIn="sizeTopic"></topic-score-pie>
           </div>
         </div>
       </div>
@@ -84,10 +84,10 @@
         <br>
         <div style="width: 100%;display: flex">
           <div style="width: 50%;height: 100%">
-            <topic-view-bar></topic-view-bar>
+            <topic-view-bar :kIn="sizeTopic"></topic-view-bar>
           </div>
           <div style="width: 50%;height: 100%">
-            <topic-view-pie></topic-view-pie>
+            <topic-view-pie :kIn="sizeTopic"></topic-view-pie>
           </div>
         </div>
       </div>
@@ -117,21 +117,20 @@
             </el-select>
           </div>
           <div style="width: 50%;height: 100%">
-            <p>Number (1-10)</p>
-            <el-input-number v-model="sizeBug" :min="1" :max="10" @change="handleChange" />
+            <p>Number (1-15)</p>
+            <el-input-number v-model="sizeBug" :min="1" :max="15" @change="handleChange" />
           </div>
         </div>
     </div>
-      <!-- <el-button :icon="Search" /> -->
     <div v-if="selectBug === '1'"> 
       Standard: Question Number
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          <bug-question-bar></bug-question-bar>
+          <bug-question-bar :kIn="sizeBug"></bug-question-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          <bug-question-pie></bug-question-pie>
+          <bug-question-pie :kIn="sizeBug"></bug-question-pie>
         </div>
       </div>
     </div>
@@ -140,10 +139,10 @@
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          <bug-answer-bar></bug-answer-bar>
+          <bug-answer-bar :kIn="sizeBug"></bug-answer-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          <bug-answer-pie></bug-answer-pie>
+          <bug-answer-pie :kIn="sizeBug"></bug-answer-pie>
         </div>
       </div>
     </div>
@@ -152,10 +151,10 @@
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          <bug-score-bar></bug-score-bar>
+          <bug-score-bar :kIn="sizeBug"></bug-score-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          <bug-score-pie></bug-score-pie>
+          <bug-score-pie :kIn="sizeBug"></bug-score-pie>
         </div>
       </div>
     </div>
@@ -164,30 +163,40 @@
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          <bug-view-bar></bug-view-bar>
+          <bug-view-bar :kIn="sizeBug"></bug-view-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          <bug-view-pie></bug-view-pie>
+          <bug-view-pie :kIn="sizeBug"></bug-view-pie>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <test-echart-pie></test-echart-pie> -->
-  <!-- <word-cloud></word-cloud> -->
-  <!-- <similar-topic></similar-topic>
-  <intimacy-topic></intimacy-topic> -->
-
   <div class="task">
     <div class="username">Relative Topic</div>
     <br>
     <div class="mt-4">
-        <el-input
-        v-model="topic"
-        placeholder="Please input a topic"
-        class="input-with-select"
-        >
-        </el-input>
+      <div style="display: flex;  margin-bottom:20px">
+          <div class="m-4" style="width: 50%;height: 100%">
+            <p>Topic</p>
+            <el-input
+              v-model="topic"
+              placeholder="Please input a topic"
+              class="input-with-select"
+            >
+              <template #append>
+                <el-button 
+                    :icon="Search" 
+                    @click="confirmSearch"
+                />
+              </template>
+            </el-input>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <p>Number (1-15)</p>
+            <el-input-number v-model="sizeRelative" :min="1" :max="15"/>
+          </div>
+        </div>
     </div>
     <br>
     <div class="tags">
@@ -196,10 +205,13 @@
     <br>
     <div style="width: 100%;display: flex">
       <div style="width: 50%;height: 100%">
-        <similar-topic></similar-topic>
+        <similar-topic :topicIn="topicIn" :searched="relativeSearched" :kIn="sizeRelative"></similar-topic>
       </div>
       <div style="width: 50%;height: 100%">
-        <similar-bar></similar-bar>
+        <br>
+        <br>
+        <br>
+        <similar-bar :topicIn="topicIn" :searched="relativeSearched" :kIn="sizeRelative"></similar-bar>
       </div>
     </div>
     <br>
@@ -209,10 +221,13 @@
     <br>
     <div style="width: 100%;display: flex">
       <div style="width: 50%;height: 100%">
-        <intimacy-topic></intimacy-topic>
+        <intimacy-topic :topicIn="topicIn" :searched="relativeSearched" :kIn="sizeRelative"></intimacy-topic>
       </div>
       <div style="width: 50%;height: 100%">
-        <intimacy-bar></intimacy-bar>
+        <br>
+        <br>
+        <br>
+        <intimacy-bar :topicIn="topicIn" :searched="relativeSearched" :kIn="sizeRelative"></intimacy-bar>
       </div>
     </div>
     <br>
@@ -220,6 +235,9 @@
 </template>
 
 <script>
+import { Search } from '@element-plus/icons-vue'
+import { ElNotification } from 'element-plus'
+
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
 import topicQuestionBar from './topic/topicQuestionBar.vue';
@@ -239,13 +257,10 @@ import bugAnswerPie from './bug/bugAnswerPie.vue';
 import bugQuestionPie from './bug/bugQuestionPie.vue';
 import bugScorePie from './bug/bugScorePie.vue';
 import bugViewPie from './bug/bugViewPie.vue';
-// import testEchartPie from "@/components/testEchartPie.vue";
 import similarTopic from './revalent/similarTopic.vue';
 import similarBar from './revalent/similarBar.vue';
 import intimacyTopic from './revalent/intimacyTopic.vue';
 import intimacyBar from './revalent/intimacyBar.vue';
-// import inputPart from './inputPart.vue';
-// import wordCloud from './wordCloud.vue';
 import singleTopic from './single/singleTopic.vue';
 import singleBug from './single/singleBug.vue';
 
@@ -299,8 +314,10 @@ const selectBug = ref('');
 // const inputBug = ref('');
 const sizeTopic = ref(10);
 const sizeBug = ref(10);
-
+const sizeRelative = ref(10);
 const topic = ref('');
+const topicIn = ref('');
+const relativeSearched = ref(false);
 // const options = [
 //   {
 //     value: 1,
@@ -343,6 +360,20 @@ const topic = ref('');
 //     label: '10',
 //   },
 // ]
+
+const confirmSearch = () => {
+  if(topic.value===''||topic.value === null || topic.value === undefined){
+        ElNotification({
+            title: 'Error',
+            message: 'You should input at least one letter.',
+            type: 'error',
+        })
+    }
+    else{
+      topicIn.value = topic.value;
+      relativeSearched.value=true;
+    }
+}
 </script>
 
 <style scoped>
