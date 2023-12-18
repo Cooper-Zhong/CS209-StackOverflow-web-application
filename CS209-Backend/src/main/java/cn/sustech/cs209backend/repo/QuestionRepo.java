@@ -116,4 +116,132 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
     List<Map> topKBugsByAppearanceCount(@Param("k") Integer k);
 
 
+
+    // exception ------------------------------------------------------
+
+    @Query(value = "select qb.bug_name, avg(q.answer_count) as average_answer_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'exception' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_answer_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKExceptionsByAnswerCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.view_count) as average_view_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'exception' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_view_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKExceptionsByViewCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.score) as average_score " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'exception' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_score desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKExceptionsByAvgScore(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, count(*) as question_count " +
+            "from questions_bugs qb " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'exception' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by question_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKExceptionsByQuestionCount(@Param("k") Integer k);
+
+
+
+
+    // syntaxError ------------------------------------------------------
+
+    @Query(value = "select qb.bug_name, avg(q.answer_count) as average_answer_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'SyntaxError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_answer_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKSyntaxErrorByAnswerCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.view_count) as average_view_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'SyntaxError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_view_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKSyntaxErrorByViewCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.score) as average_score " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'SyntaxError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_score desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKSyntaxErrorByAvgScore(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, count(*) as question_count " +
+            "from questions_bugs qb " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'SyntaxError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by question_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKSyntaxErrorByQuestionCount(@Param("k") Integer k);
+
+
+
+    // fatalError ------------------------------------------------------
+
+    @Query(value = "select qb.bug_name, avg(q.answer_count) as average_answer_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'FatalError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_answer_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKFatalErrorByAnswerCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.view_count) as average_view_count " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'FatalError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_view_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKFatalErrorByViewCount(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, avg(q.score) as average_score " +
+            "from questions_bugs qb " +
+            "join questions q on qb.question_id = q.question_id " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'FatalError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by average_score desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKFatalErrorByAvgScore(@Param("k") Integer k);
+
+    @Query(value = "select qb.bug_name, count(*) as question_count " +
+            "from questions_bugs qb " +
+            "join bug_type bt on bt.bug_name = qb.bug_name " + // 添加 join bug_type
+            "where bt.type = 'FatalError' " + // 添加条件
+            "group by qb.bug_name " +
+            "order by question_count desc " +
+            "LIMIT :k", nativeQuery = true)
+    List<Map> topKFatalErrorByQuestionCount(@Param("k") Integer k);
 }
