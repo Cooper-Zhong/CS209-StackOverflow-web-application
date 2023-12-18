@@ -112,7 +112,7 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
             "from answers_bugs) as combined_bugs " +
             "group by bug_name " +
             "order by total_count desc " +
-            "limit 10;", nativeQuery = true)
+            "limit :k;", nativeQuery = true)
     List<Map> topKBugsByAppearanceCount(@Param("k") Integer k);
 
 
