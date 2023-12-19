@@ -26,6 +26,7 @@
     name: 'BarChart',
     components: { Bar },
     props:{
+      type: String,
       kIn: Number,
     },
     setup(props){
@@ -34,7 +35,7 @@
       const {init} = useToast();
       const items = ref([]);
       const getBugsByView = () => {
-        axios.get(`/bug/topKByViewCount/${props.kIn}`, {}, {})
+        axios.get(`/${props.type}/topKByViewCount/${props.kIn}`, {}, {})
             .then(response => {
               items.value = response.data
               // init(JSON.stringify(items.value))
@@ -54,7 +55,7 @@
       onMounted(() => {
         getBugsByView();
       });
-      watch(() => [props.kIn], () => {
+      watch(() => [props.kIn, props.type], () => {
         getBugsByView();
       });
       return{
