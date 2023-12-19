@@ -244,4 +244,15 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
             "order by question_count desc " +
             "LIMIT :k", nativeQuery = true)
     List<Map> topKFatalErrorByQuestionCount(@Param("k") Integer k);
+
+
+    // bug ------------------------------------------------------
+
+    @Query(value = "SELECT q " +
+            "FROM Question q " +
+            "JOIN q.bugs b " +
+            "JOIN BugType bt ON b.bugName = bt.bugName " +
+            "WHERE bt.bug = :category", nativeQuery = true)
+    List<Question> findByBugType(@Param("category") String category);
+
 }
