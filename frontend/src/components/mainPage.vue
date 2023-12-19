@@ -108,7 +108,7 @@
   
   <!-- bug分类 -->
   <div class="task">
-    <div class="username">Classified Bug Popularity</div>
+    <div class="username">Single Categorized Bug Popularity</div>
     <br>
     <div class="mt-4">
         <div style="display: flex;  margin-bottom:20px">
@@ -199,6 +199,19 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="task">
+    <div class="username">Categorized Bug Popularity</div>
+    <br>
+    <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <bug-compare-radar></bug-compare-radar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <bug-compare-bar></bug-compare-bar>
+        </div>
+      </div>
   </div>
 
   <!-- bug multiple -->
@@ -396,6 +409,9 @@ import singleBugScorePie from './singleBug/singleBugScorePie.vue';
 import singleBugViewBar from './singleBug/singleBugViewBar.vue';
 import singleBugViewPie from './singleBug/singleBugViewPie.vue';
 
+import bugCompareRadar from './bugCompare/bugCompareRadar.vue';
+import bugCompareBar from './bugCompare/bugCompareBar.vue';
+
 export default {
   name: 'mainPage',
   components: {
@@ -445,6 +461,9 @@ export default {
     singleBugScorePie,
     singleBugViewBar,
     singleBugViewPie,
+
+    bugCompareRadarVue,
+    bugCompareBar,
 },
 }
 </script>

@@ -519,6 +519,64 @@ public class QuestionService {
 
 
 
+    // bug type ------------------------------------------------------
+
+    public List<Question> questionsByBugType(String type) {
+        return questionRepo.findByBugType(type);
+    }
+
+    public BigDecimal bugTypeAvgViewCount(String type) {
+        List<Question> questions = questionRepo.findByBugType(type);
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Question question : questions) {
+            sum = sum.add(BigDecimal.valueOf(question.getViewCount()));
+        }
+        if (sum.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
+        return sum.divide(BigDecimal.valueOf(questions.size()), RoundingMode.HALF_UP);
+    }
+
+    public double bugTypeAvgAnswerCount(String type) {
+        List<Question> questions = questionRepo.findByBugType(type);
+        double sum = 0;
+        for (Question question : questions) {
+            sum += question.getAnswerCount();
+        }
+        if (sum == 0) return 0;
+        return sum/questions.size();
+    }
+
+    public int bugTypeTotalAnswerCount(String type) {
+        List<Question> questions = questionRepo.findByBugType(type);
+        int sum = 0;
+        for (Question question : questions) {
+            sum += question.getAnswerCount();
+        }
+        return sum;
+    }
+
+    public int bugTypeQuestionCount(String type) {
+        return questionRepo.findByBugType(type).size();
+    }
+
+    public int bugTypeTotalScore(String type) {
+        List<Question> questions = questionRepo.findByBugType(type);
+        int sum = 0;
+        for (Question question : questions) {
+            sum += question.getScore();
+        }
+        return sum;
+    }
+
+    public double bugTypeAvgScore(String type) {
+        List<Question> questions = questionRepo.findByBugType(type);
+        double sum = 0;
+        for (Question question : questions) {
+            sum += question.getScore();
+        }
+        if (sum == 0) return 0;
+        return sum/questions.size();
+    }
+
 
 
 }
