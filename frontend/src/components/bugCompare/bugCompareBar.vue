@@ -79,14 +79,23 @@
         {
           type: 'bar',
           data: exception,
+          itemStyle: {
+            color: '#77CEFF' // 设置颜色
+          } 
         },
         {
           type: 'bar',
-          data: fatalError
+          data: fatalError,
+          itemStyle: {
+            color: '#0079AF' // 设置颜色
+          } 
         },
         {
           type: 'bar',
-          data: syntaxError
+          data: syntaxError,
+          itemStyle: {
+            color: '#123E6B' // 设置颜色
+          } 
         }
       ]
     };

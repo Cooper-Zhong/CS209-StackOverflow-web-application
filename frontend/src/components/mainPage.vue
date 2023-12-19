@@ -462,7 +462,7 @@ export default {
     singleBugViewBar,
     singleBugViewPie,
 
-    bugCompareRadarVue,
+    bugCompareRadar,
     bugCompareBar,
 },
 }

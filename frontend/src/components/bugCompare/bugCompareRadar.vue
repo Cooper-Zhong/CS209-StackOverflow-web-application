@@ -1,5 +1,5 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
+  <div ref="evaluationDimension" style="width: 100%; height: 300px"></div>
 </template>
 
   
@@ -74,7 +74,8 @@ const initDimension = (exception, syntaxError, fatalError) => {
     //   text: 'Classified Bug Radar'
     // },
     legend: {
-      data: ['Exception', 'Syntax Error', 'Fatal Error']
+      data: ['Exception', 'Syntax Error', 'Fatal Error'],
+      top: 250,
     },
     radar: {
       // shape: 'circle',
@@ -93,15 +94,24 @@ const initDimension = (exception, syntaxError, fatalError) => {
         data: [
           {
             value: exception,
-            name: 'Exception'
+            name: 'Exception',
+            itemStyle: {
+              color: '#77CEFF' // 设置颜色
+            } 
           },
           {
             value: fatalError,
-            name: 'Syntax Error'
+            name: 'Syntax Error',
+            itemStyle: {
+              color: '#0079AF' // 设置颜色
+            } 
           },
           {
             value: syntaxError,
-            name: 'Fatal Error'
+            name: 'Fatal Error',
+            itemStyle: {
+              color: '#123E6B' // 设置颜色
+            } 
           }
         ]
       }
