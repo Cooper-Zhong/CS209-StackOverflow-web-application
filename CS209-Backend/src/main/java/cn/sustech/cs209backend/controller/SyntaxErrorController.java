@@ -30,26 +30,50 @@ public class SyntaxErrorController {
 
     @GetMapping("/topKByViewCount/{k}")
     public List<BugViewCount> topKBugsByViewCount(@PathVariable int k) {
-        log.info("SYNTAX ERROR - Request for function: topKBugsByViewCount, input size: " + k);
-        return questionService.topKSyntaxErrorByViewCount(k);
+        try {
+            log.info("SYNTAX ERROR - Request for function: topKBugsByViewCount, input size: " + k);
+            return questionService.topKSyntaxErrorByViewCount(k);
+        } catch (Exception e) {
+            log.error("SYNTAX ERROR - Request for function: topKBugsByViewCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByAnswerCount/{k}")
     public List<JSONObject> topKBugsByAnswerCount(@PathVariable int k) {
-        log.info("SYNTAX ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
-        return questionService.topKSyntaxErrorByAnswerCount(k);
+        try {
+            log.info("SYNTAX ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
+            return questionService.topKSyntaxErrorByAnswerCount(k);
+        } catch (Exception e) {
+            log.error("SYNTAX ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByAvgScore/{k}")
     public List<JSONObject> topKBugsByAvgScore(@PathVariable int k) {
-        log.info("SYNTAX ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
-        return questionService.topKSyntaxErrorByAvgScore(k);
+        try {
+            log.info("SYNTAX ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
+            return questionService.topKSyntaxErrorByAvgScore(k);
+        } catch (Exception e) {
+            log.error("SYNTAX ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByQuestionCount/{k}")
     public List<JSONObject> topKBugsByQuestionCount(@PathVariable int k) {
-        log.info("SYNTAX ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
-        return questionService.topKSyntaxErrorByQuestionCount(k);
+        try {
+            log.info("SYNTAX ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
+            return questionService.topKSyntaxErrorByQuestionCount(k);
+        } catch (Exception e) {
+            log.error("SYNTAX ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 }
 

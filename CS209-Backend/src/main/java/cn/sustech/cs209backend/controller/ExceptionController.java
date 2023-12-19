@@ -29,26 +29,46 @@ public class ExceptionController {
 
     @GetMapping("/topKByViewCount/{k}")
     public List<BugViewCount> topKBugsByViewCount(@PathVariable int k) {
-        log.info("EXCEPTION - Request for function: topKBugsByViewCount, input size: " + k);
-        return questionService.topKExceptionsByViewCount(k);
+        try {
+            log.info("EXCEPTION - Request for function: topKBugsByViewCount, input size: " + k);
+            return questionService.topKExceptionsByViewCount(k);
+        } catch (Exception e) {
+            log.error("EXCEPTION - Request for function: topKBugsByViewCount, input size: " + k);
+            return null;
+        }
     }
 
     @GetMapping("/topKByAnswerCount/{k}")
     public List<JSONObject> topKBugsByAnswerCount(@PathVariable int k) {
-        log.info("EXCEPTION - Request for function: topKBugsByAnswerCount, input size: " + k);
-        return questionService.topKExceptionsByAnswerCount(k);
+        try {
+            log.info("EXCEPTION - Request for function: topKBugsByAnswerCount, input size: " + k);
+            return questionService.topKExceptionsByAnswerCount(k);
+        } catch (Exception e) {
+            log.error("EXCEPTION - Request for function: topKBugsByAnswerCount, input size: " + k);
+            return null;
+        }
     }
 
     @GetMapping("/topKByAvgScore/{k}")
     public List<JSONObject> topKBugsByAvgScore(@PathVariable int k) {
-        log.info("EXCEPTION - Request for function: topKBugsByAvgScore, input size: " + k);
-        return questionService.topKExceptionsByAvgScore(k);
+        try {
+            log.info("EXCEPTION - Request for function: topKBugsByAvgScore, input size: " + k);
+            return questionService.topKExceptionsByAvgScore(k);
+        } catch (Exception e) {
+            log.error("EXCEPTION - Request for function: topKBugsByAvgScore, input size: " + k);
+            return null;
+        }
     }
 
     @GetMapping("/topKByQuestionCount/{k}")
     public List<JSONObject> topKBugsByQuestionCount(@PathVariable int k) {
-        log.info("EXCEPTION - Request for function: topKBugsByQuestionCount, input size: " + k);
-        return questionService.topKExceptionsByQuestionCount(k);
+        try {
+            log.info("EXCEPTION - Request for function: topKBugsByQuestionCount, input size: " + k);
+            return questionService.topKExceptionsByQuestionCount(k);
+        } catch (Exception e) {
+            log.error("EXCEPTION - Request for function: topKBugsByQuestionCount, input size: " + k);
+            return null;
+        }
     }
 
 }
