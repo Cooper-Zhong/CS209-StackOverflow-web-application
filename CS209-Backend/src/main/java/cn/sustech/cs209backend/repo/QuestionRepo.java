@@ -116,7 +116,6 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
     List<Map> topKBugsByAppearanceCount(@Param("k") Integer k);
 
 
-
     // exception ------------------------------------------------------
 
     @Query(value = "select qb.bug_name, avg(q.answer_count) as average_answer_count " +
@@ -159,8 +158,6 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
     List<Map> topKExceptionsByQuestionCount(@Param("k") Integer k);
 
 
-
-
     // syntaxError ------------------------------------------------------
 
     @Query(value = "select qb.bug_name, avg(q.answer_count) as average_answer_count " +
@@ -201,7 +198,6 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
             "order by question_count desc " +
             "LIMIT :k", nativeQuery = true)
     List<Map> topKSyntaxErrorByQuestionCount(@Param("k") Integer k);
-
 
 
     // fatalError ------------------------------------------------------
@@ -248,11 +244,11 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 
     // bug ------------------------------------------------------
 
-    @Query(value = "SELECT q " +
-            "FROM Question q " +
-            "JOIN q.bugs b " +
-            "JOIN BugType bt ON b.bugName = bt.bugName " +
-            "WHERE bt.bug = :category", nativeQuery = true)
+    @Query(value = "select * " +
+            "from questions " +
+            "where question_id in (select question_id " +
+            "from questions_bugs " +
+            "where bug_name in (select bug_name from bug_type where type = :category));", nativeQuery = true)
     List<Question> findByBugType(@Param("category") String category);
 
 }
