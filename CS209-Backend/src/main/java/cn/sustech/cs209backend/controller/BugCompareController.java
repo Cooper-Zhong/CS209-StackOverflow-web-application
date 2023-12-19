@@ -37,31 +37,31 @@ public class BugCompareController {
         }
 
         try {
-            log.info("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type);
+            log.info("BUG COMPARE - Request for function: bugTypeAvgAnswerCount, input: " + type);
             ans[1] = questionService.bugTypeAvgAnswerCount(type);
         } catch (Exception e) {
-            log.error("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type + " failed");
+            log.error("BUG COMPARE - Request for function: bugTypeAvgAnswerCount, input: " + type + " failed");
         }
         try {
-            log.info("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type);
+            log.info("BUG COMPARE - Request for function: bugTypeTotalAnswerCount, input: " + type);
             ans[2] = questionService.bugTypeTotalAnswerCount(type);
         } catch (Exception e) {
             log.error("BUG COMPARE - Request for function: bugTypeTotalAnswerCount, input: " + type + " failed");
         }
         try {
-            log.info("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type);
+            log.info("BUG COMPARE - Request for function: bugTypeQuestionCount, input: " + type);
             ans[3] = questionService.bugTypeQuestionCount(type);
         } catch (Exception e) {
             log.error("BUG COMPARE - Request for function: bugTypeQuestionCount, input: " + type + " failed");
         }
         try {
-            log.info("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type);
+            log.info("BUG COMPARE - Request for function: bugTypeTotalScore, input: " + type);
             ans[4] = questionService.bugTypeTotalScore(type);
         } catch (Exception e) {
             log.error("BUG COMPARE - Request for function: bugTypeTotalScore, input: " + type + " failed");
         }
         try {
-            log.info("BUG COMPARE - Request for function: bugTypeAvgViewCount, input: " + type);
+            log.info("BUG COMPARE - Request for function: bugTypeAvgScore, input: " + type);
             ans[5] = questionService.bugTypeAvgScore(type);
         } catch (Exception e) {
             log.error("BUG COMPARE - Request for function: bugTypeAvgScore, input: " + type + " failed");

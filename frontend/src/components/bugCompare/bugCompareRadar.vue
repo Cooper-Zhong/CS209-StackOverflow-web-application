@@ -1,5 +1,5 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 300px"></div>
+  <div ref="evaluationDimension" style="width: 100%; height: 260px"></div>
 </template>
 
   
@@ -63,9 +63,11 @@ const getCompare = () => {
     };
 onMounted(() => {
   getCompare()
+  initDimension()
 });
 
 const initDimension = (exception, syntaxError, fatalError) => {
+  // const initDimension = () => {
   var myChart = echarts.init(evaluationDimension.value);
   var option;
 
@@ -73,19 +75,23 @@ const initDimension = (exception, syntaxError, fatalError) => {
     // title:{
     //   text: 'Classified Bug Radar'
     // },
+    tooltip: {
+      trigger: 'item'
+    },
     legend: {
       data: ['Exception', 'Syntax Error', 'Fatal Error'],
-      top: 250,
+      bottom: 0,
     },
     radar: {
+      radius: ["0%", "58%"],
       // shape: 'circle',
       indicator: [
-        { name: 'Avarage Answer Count', max: 6500 },
-        { name: 'Total Answer Count', max: 16000 },
-        { name: 'Avarage View Count', max: 30000 },
-        { name: 'Total View Count', max: 38000 },
-        { name: 'Question Count', max: 52000 },
-        { name: 'Avarage Score', max: 200 }
+        { name: 'Total View Count', max: 10 },
+        { name: 'Avarage Answer Count', max: 5 },
+        { name: 'Total Answer Count', max: 5 },
+        { name: 'Question Count', max: 20 },
+        { name: 'Total Score', max: 10 },
+        { name: 'Avarage Score', max: 5 }
       ]
     },
     series: [
@@ -94,13 +100,15 @@ const initDimension = (exception, syntaxError, fatalError) => {
         data: [
           {
             value: exception,
+            // value : [1,1,1,1,1,1],
             name: 'Exception',
             itemStyle: {
               color: '#77CEFF' // 设置颜色
-            } 
+            },
           },
           {
             value: fatalError,
+            // value : [2,2,2,2,2,2],
             name: 'Syntax Error',
             itemStyle: {
               color: '#0079AF' // 设置颜色
@@ -108,6 +116,7 @@ const initDimension = (exception, syntaxError, fatalError) => {
           },
           {
             value: syntaxError,
+            // value : [3,3,3,3,3,3],
             name: 'Fatal Error',
             itemStyle: {
               color: '#123E6B' // 设置颜色
