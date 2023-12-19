@@ -5,7 +5,7 @@
         :data="{
         labels: items.map(item=>item.bugName),
         datasets: [ { 
-          data: items.map(item => item.average_view_count), 
+          data: items.map(item => item.questionCount),
           backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
              '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
         } ]
@@ -26,6 +26,7 @@
     name: 'BarChart',
     components: { Bar },
     props:{
+      type: String,
       kIn: Number,
     },
     setup(props){
@@ -33,11 +34,11 @@
       axios.defaults.baseURL = appConfig.$apiBaseUrl;
       const {init} = useToast();
       const items = ref([]);
-      const getBugsByView = () => {
-        axios.get(`/bug/topKByViewCount/${props.kIn}`, {}, {})
+      const getBugsByQuestion = () => {
+        axios.get(`/${props.type}/topKByQuestionCount/${props.kIn}`, {}, {})
             .then(response => {
               items.value = response.data
-              // init(JSON.stringify(items.value))
+              // init("question"+JSON.stringify(items.value))
             })
             .catch(error => {
               if (error.response) {
@@ -52,10 +53,10 @@
             });
       };
       onMounted(() => {
-        getBugsByView();
+        getBugsByQuestion();
       });
-      watch(() => [props.kIn], () => {
-        getBugsByView();
+      watch(() => [props.kIn , props.type], () => {
+        getBugsByQuestion();
       });
       return{
         items,

@@ -3,13 +3,14 @@
       id="my-chart-id"
       :options="chartOptions"
       :data="{
-        labels: items.map(item=>item.tagName),
-        datasets: [ { 
-          data: items.map(item => item.averageScore), 
-          backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
-             '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
-        } ]
-      }"
+      labels: items.map(item=>item.bugName),
+      datasets: [ { 
+        // data: items.map(item => item.averageAnswerCount),
+        data: items.map(item => item.totalCount),
+        backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
+           '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
+      } ]
+    }"
   />
 </template>
 
@@ -24,17 +25,17 @@ import axios from "axios";
 import {useToast} from "vuestic-ui";
 export default defineComponent({
   name: 'BarChart',
-  props:{
-      kIn: Number,
-  },
   components: { Bar },
+  props:{
+    kIn: Number,
+  },
   setup(props){
     const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
     axios.defaults.baseURL = appConfig.$apiBaseUrl;
     const {init} = useToast();
     const items = ref([]);
-    const getTopicsByScore = () => {
-      axios.get(`/topic/topKByAvgScore/${props.kIn}`, {}, {})
+    const getBugsByAppearance = () => {
+      axios.get(`/bug/topKByAppearanceCount/${props.kIn}`, {}, {})
           .then(response => {
             items.value = response.data
             // init(JSON.stringify(items.value))
@@ -52,10 +53,10 @@ export default defineComponent({
           });
     };
     onMounted(() => {
-      getTopicsByScore();
+      getBugsByAppearance();
     });
     watch(() => [props.kIn], () => {
-      getTopicsByScore();
+      getBugsByAppearance();
     });
     return{
       items,
@@ -70,10 +71,10 @@ export default defineComponent({
       chartOptions: {
         responsive: true,
         plugins: {
-            legend: {
-              display:false,
-            },
+          legend: {
+            display:false,
           },
+        },
       }
     }
   }

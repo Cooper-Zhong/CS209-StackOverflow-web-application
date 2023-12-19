@@ -1,21 +1,29 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 260px"></div>
+  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
 </template>
+
+<script>
+import {ref, defineComponent, onMounted, getCurrentInstance, watch, defineProps} from 'vue';
+import axios from "axios";
+import {useToast} from "vuestic-ui";
+export default defineComponent({
+  props:{
+    kIn: Number,
+  },
+})
+</script>
   
 <script setup>
 import * as echarts from "echarts";
-import { ref, onMounted, getCurrentInstance } from "vue";
-import axios from "axios";
-import {useToast} from "vuestic-ui";
-
+const props = defineProps(['kIn']);
 const evaluationDimension = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
-const getTopicsByView = () => {
-  axios.get(`/topic/topKByViewCount/${10}`, {}, {})
+const getTopicsByScore = () => {
+  axios.get(`/topic/topKByViewCount/${props['kIn']}`, {}, {})
   .then(response => {
       items.value = response.data
       chartData.value = items.value.map(item => ({
@@ -39,7 +47,10 @@ const getTopicsByView = () => {
   });
 };
 onMounted(() => {
-  getTopicsByView()
+  getTopicsByScore()
+});
+watch(() => [props['kIn']], () => {
+  getTopicsByScore();
 });
 
 const initDimension = (chartData) => {
@@ -47,18 +58,24 @@ const initDimension = (chartData) => {
   var option;
 
   option = {
+    color:['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
+             '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF'],
   tooltip: {
       trigger: 'item'
   },
   legend: {
-      top: '5%',
-      left: 'center'
+    type: 'scroll',
+    orient: 'vertical',
+    top: 220,
+    // left: 10,
+    // top: '5%',
+    left: 'center'
   },
   series: [
       {
       name: 'Access From',
       type: 'pie',
-      radius: ['40%', '70%'],
+      radius: ['40%', '60%'],
       avoidLabelOverlap: false,
       label: {
           show: false,

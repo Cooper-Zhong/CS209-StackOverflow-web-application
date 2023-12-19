@@ -8,6 +8,7 @@ import axios from "axios";
 import {useToast} from "vuestic-ui";
 export default defineComponent({
   props:{
+    type: String,
     kIn: Number,
   },
 })
@@ -15,7 +16,7 @@ export default defineComponent({
 
 <script setup>
 import * as echarts from "echarts";
-const props = defineProps(['kIn']);
+const props = defineProps(['kIn','type']);
 
 const evaluationDimension = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
@@ -24,7 +25,7 @@ const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const getBugsByView = () => {
-  axios.get(`/bug/topKByViewCount/${props['kIn']}`, {}, {})
+  axios.get(`/${props['type']}/topKByViewCount/${props['kIn']}`, {}, {})
   .then(response => {
       items.value = response.data
       chartData.value = items.value.map(item => ({
@@ -50,7 +51,7 @@ const getBugsByView = () => {
 onMounted(() => {
   getBugsByView()
 });
-watch(() => [props['kIn']], () => {
+watch(() => [props['kIn'], props['type']], () => {
   getBugsByView();
 });
 
