@@ -35,7 +35,9 @@
       const {init} = useToast();
       const items = ref([]);
       const getBugsByAnswers = () => {
-        axios.get(`/${props.type}/topKByAnswerCount/${props.kIn}`, {}, {})
+        // alert(axios.defaults.baseURL+'/'+props.type+'/topKByAnswerCount/'+props.kIn);
+        if(props.type!==''&& props.type!==undefined&& props.type!==null){
+            axios.get(`/${props.type}/topKByAnswerCount/${props.kIn}`, {}, {})
             .then(response => {
               items.value = response.data
               // init(JSON.stringify(items.value))
@@ -51,6 +53,8 @@
   
               }
             });
+        }
+
       };
       onMounted(() => {
         getBugsByAnswers();

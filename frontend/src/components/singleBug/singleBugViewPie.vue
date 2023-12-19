@@ -25,28 +25,31 @@ const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const getBugsByView = () => {
-  axios.get(`/${props['type']}/topKByViewCount/${props['kIn']}`, {}, {})
-  .then(response => {
-      items.value = response.data
-      chartData.value = items.value.map(item => ({
-          value: item.average_view_count,
-          name: item.bugName
-      }));
-      // init(JSON.stringify(chartData.value))
-      initDimension(chartData.value)
-      // init(JSON.stringify(items.value))
-  })
-  .catch(error => {
-      if (error.response) {
-      // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-      init({message: error.response.data.msg, color: "danger"})
-      // init({message: error.message, color: "danger"})
-      } else {
-      // 一些错误是在设置请求的时候触发
-      init({message: error.message, color: "danger"})
+  if(props.type!==''&& props.type!==undefined&& props.type!==null){
+    axios.get(`/${props['type']}/topKByViewCount/${props['kIn']}`, {}, {})
+    .then(response => {
+        items.value = response.data
+        chartData.value = items.value.map(item => ({
+            value: item.average_view_count,
+            name: item.bugName
+        }));
+        // init(JSON.stringify(chartData.value))
+        initDimension(chartData.value)
+        // init(JSON.stringify(items.value))
+    })
+    .catch(error => {
+        if (error.response) {
+        // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+        init({message: error.response.data.msg, color: "danger"})
+        // init({message: error.message, color: "danger"})
+        } else {
+        // 一些错误是在设置请求的时候触发
+        init({message: error.message, color: "danger"})
 
-      }
-  });
+        }
+    });
+  }
+  
 };
 onMounted(() => {
   getBugsByView()
