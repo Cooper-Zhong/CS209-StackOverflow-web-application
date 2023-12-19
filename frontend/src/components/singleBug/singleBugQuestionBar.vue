@@ -35,7 +35,8 @@
       const {init} = useToast();
       const items = ref([]);
       const getBugsByQuestion = () => {
-        axios.get(`/${props.type}/topKByQuestionCount/${props.kIn}`, {}, {})
+        if(props.type!==''&& props.type!==undefined&& props.type!==null){
+          axios.get(`/${props.type}/topKByQuestionCount/${props.kIn}`, {}, {})
             .then(response => {
               items.value = response.data
               // init("question"+JSON.stringify(items.value))
@@ -51,6 +52,8 @@
   
               }
             });
+        }
+        
       };
       onMounted(() => {
         getBugsByQuestion();

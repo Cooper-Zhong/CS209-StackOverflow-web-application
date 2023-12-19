@@ -40,7 +40,7 @@
           </div>
           <div style="width: 50%;height: 100%">
             <p>Number (1-15)</p>
-            <el-input-number v-model="sizeTopic" :min="1" :max="15" @change="handleChange" />
+            <el-input-number v-model="sizeTopic" :min="1" :max="15" />
           </div>
         </div>
       </div>
@@ -105,6 +105,101 @@
     <single-bug></single-bug>
     <br>
   </div>
+  
+  <!-- bug分类 -->
+  <div class="task">
+    <div class="username">Classified Bug Popularity</div>
+    <br>
+    <div class="mt-4">
+        <div style="display: flex;  margin-bottom:20px">
+          <div class="m-4" style="width: 30%;height: 100%">
+            <p>Bug Type</p>
+            <el-select v-model="selectBugType" placeholder="Select" style="width: 50%">
+              <el-option label="Exception" value="exception" />
+              <el-option label="Syntax Error" value="syntaxError" />
+              <el-option label="Fatal Error" value="fatalError" />
+            </el-select>
+          </div>
+          <div class="m-4" style="width: 30%;height: 100%">
+            <p>Standard</p>
+            <el-select v-model="selectBugSingle" placeholder="Select" style="width: 50%">
+              <el-option label="Question Number" value="1" />
+              <el-option label="Answer Number" value="2" />
+              <el-option label="Average Score" value="3" />
+              <el-option label="View" value="4" />
+            </el-select>
+          </div>
+          <div style="width: 40%;height: 100%">
+            <p>Number (1-15)</p>
+            <el-input-number v-model="sizeBugSingle" :min="1" :max="15" />
+          </div>
+        </div>
+    </div>
+    <div v-if="selectBugSingle === '1'"> 
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: Question Number </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Question Number </div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Question Number </div>
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <single-bug-question-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <single-bug-question-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBugSingle === '2'">
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br>  Standard: Answer Number </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Answer Number </div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Answer Number </div>
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <single-bug-answer-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <single-bug-answer-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBugSingle === '3'">
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: Average Score </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Average Score </div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Average Score </div>
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <single-bug-score-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <single-bug-score-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-pie>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="selectBugSingle === '4'">
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: View Count </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: View Count</div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: View Count</div>
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          <single-bug-view-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          <single-bug-view-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-pie>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- bug multiple -->
   <div class="task">
@@ -124,7 +219,7 @@
           </div>
           <div style="width: 50%;height: 100%">
             <p>Number (1-15)</p>
-            <el-input-number v-model="sizeBug" :min="1" :max="15" @change="handleChange" />
+            <el-input-number v-model="sizeBug" :min="1" :max="15" />
           </div>
         </div>
     </div>
@@ -195,6 +290,8 @@
     </div>
   </div>
 
+
+  <!-- relative topic -->
   <div class="task">
     <div class="username">Relative Topic</div>
     <br>
@@ -290,6 +387,15 @@ import intimacyBar from './revalent/intimacyBar.vue';
 import singleTopic from './single/singleTopic.vue';
 import singleBug from './single/singleBug.vue';
 
+import singleBugAnswerBar from './singleBug/singleBugAnswerBar.vue';
+import singleBugAnswerPie from './singleBug/singleBugAnswerPie.vue';
+import singleBugQuestionBar from './singleBug/singleBugQuestionBar.vue';
+import singleBugQuestionPie from './singleBug/singleBugQuestionPie.vue';
+import singleBugScoreBar from './singleBug/singleBugScoreBar.vue';
+import singleBugScorePie from './singleBug/singleBugScorePie.vue';
+import singleBugViewBar from './singleBug/singleBugViewBar.vue';
+import singleBugViewPie from './singleBug/singleBugViewPie.vue';
+
 export default {
   name: 'mainPage',
   components: {
@@ -330,6 +436,15 @@ export default {
 
     singleTopic,
     singleBug,
+
+    singleBugAnswerBar,
+    singleBugAnswerPie,
+    singleBugQuestionBar,
+    singleBugQuestionPie,
+    singleBugScoreBar,
+    singleBugScorePie,
+    singleBugViewBar,
+    singleBugViewPie,
 },
 }
 </script>
@@ -339,6 +454,10 @@ import { ref } from 'vue'
 // const inputTopic = ref('');
 const selectTopic = ref('');
 const selectBug = ref('');
+
+const selectBugType = ref('');
+const selectBugSingle = ref('');
+const sizeBugSingle = ref(10);
 // const inputBug = ref('');
 const sizeTopic = ref(10);
 const sizeBug = ref(10);
