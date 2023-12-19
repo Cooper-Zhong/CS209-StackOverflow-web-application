@@ -29,26 +29,51 @@ public class FatalErrorController {
 
     @GetMapping("/topKByViewCount/{k}")
     public List<BugViewCount> topKBugsByViewCount(@PathVariable int k) {
-        log.info("FATAL ERROR - Request for function: topKBugsByViewCount, input size: " + k);
-        return questionService.topKFatalErrorByViewCount(k);
+        try {
+            log.info("FATAL ERROR - Request for function: topKBugsByViewCount, input size: " + k);
+            return questionService.topKFatalErrorByViewCount(k);
+        } catch (Exception e) {
+            log.error("FATAL ERROR - Request for function: topKBugsByViewCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByAnswerCount/{k}")
     public List<JSONObject> topKBugsByAnswerCount(@PathVariable int k) {
-        log.info("FATAL ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
-        return questionService.topKFatalErrorByAnswerCount(k);
+        try {
+            log.info("FATAL ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
+            return questionService.topKFatalErrorByAnswerCount(k);
+        } catch (Exception e) {
+            log.error("FATAL ERROR - Request for function: topKBugsByAnswerCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByAvgScore/{k}")
     public List<JSONObject> topKBugsByAvgScore(@PathVariable int k) {
-        log.info("FATAL ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
-        return questionService.topKFatalErrorByAvgScore(k);
+        try {
+
+            log.info("FATAL ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
+            return questionService.topKFatalErrorByAvgScore(k);
+        } catch (Exception e) {
+            log.error("FATAL ERROR - Request for function: topKBugsByAvgScore, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping("/topKByQuestionCount/{k}")
     public List<JSONObject> topKBugsByQuestionCount(@PathVariable int k) {
-        log.info("FATAL ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
-        return questionService.topKFatalErrorByQuestionCount(k);
+        try {
+            log.info("FATAL ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
+            return questionService.topKFatalErrorByQuestionCount(k);
+        } catch (Exception e) {
+            log.error("FATAL ERROR - Request for function: topKBugsByQuestionCount, input size: " + k);
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
 }

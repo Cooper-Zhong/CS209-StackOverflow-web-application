@@ -28,31 +28,31 @@ public class QuestionController {
                 .build();
     }
 
-    @GetMapping("/all")
-    public List<Question> allQuestions() {
-        return questionService.allQuestions();
-    }
-
-    @GetMapping("/findById/{questionID}")
-    public Question questionByQuestionID(@PathVariable int questionID) {
-        return questionService.questionByQuestionID(questionID);
-    }
-
-    @GetMapping("/noAnswer")
-    public List<Question> noAnswer(
-            @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from,
-            @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date end) {
-        return questionService.noAnswer(from, end);
-    }
-
-    @GetMapping("/findByTagName/{tagName}")
-    public List<Question> questionByTagName(@PathVariable String tagName) {
-        return questionService.questionByTagName(tagName);
-    }
-
-    @GetMapping("/findByBugName/{bugName}")
-    public List<Question> questionByBugName(@PathVariable String bugName) {
-        return questionService.questionsByBugName(bugName);
-    }
+//    @GetMapping("/all")
+//    public List<Question> allQuestions() {
+//        return questionService.allQuestions();
+//    }
+//
+//    @GetMapping("/findById/{questionID}")
+//    public Question questionByQuestionID(@PathVariable int questionID) {
+//        return questionService.questionByQuestionID(questionID);
+//    }
+//
+//    @GetMapping("/noAnswer")
+//    public List<Question> noAnswer(
+//            @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date from,
+//            @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date end) {
+//        return questionService.noAnswer(from, end);
+//    }
+//
+//    @GetMapping("/findByTagName/{tagName}")
+//    public List<Question> questionByTagName(@PathVariable String tagName) {
+//        return questionService.questionByTagName(tagName);
+//    }
+//
+//    @GetMapping("/findByBugName/{bugName}")
+//    public List<Question> questionByBugName(@PathVariable String bugName) {
+//        return questionService.questionsByBugName(bugName);
+//    }
 
 }
