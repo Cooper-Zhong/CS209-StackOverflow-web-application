@@ -1,11 +1,16 @@
 <template>
   <div ref="evaluationDimension" style="width: 100%; height: 260px"></div>
+  <!-- Fatal :{{ fatalError }}
+  <br>
+  syntaxError: {{ syntaxError }}
+  <br>
+  exception: {{ exception }} -->
 </template>
 
   
 <script setup>
 import * as echarts from "echarts";
-import {ref, onMounted, getCurrentInstance} from 'vue';
+import {ref, onMounted, getCurrentInstance,watch} from 'vue';
 import axios from "axios";
 import {useToast} from "vuestic-ui";
 const evaluationDimension = ref()
@@ -17,11 +22,11 @@ const fatalError = ref([]);
 const syntaxError = ref([])
 
 const getCompare = () => {
-      init( axios.defaults.baseURL+'/bugCompare/exception')
+      // init( axios.defaults.baseURL+'/bugCompare/exception')
       axios.get(`/bugCompare/exception`, {}, {})
           .then(response => {
           exception.value = response.data
-          init(JSON.stringify(exception.value))
+          // init(JSON.stringify(exception.value))
           })
           .catch(error => {
             if (error.response) {
@@ -49,7 +54,6 @@ const getCompare = () => {
       axios.get(`/bugCompare/SyntaxError`, {}, {})
       .then(response => {
           syntaxError.value = response.data
-          initDimension(exception.value, fatalError.value,syntaxError.value);
       })
       .catch(error => {
           if (error.response) {
@@ -63,9 +67,10 @@ const getCompare = () => {
     };
 onMounted(() => {
   getCompare()
-  initDimension()
 });
-
+watch(() => [exception.value,syntaxError.value,fatalError.value], () => {
+  initDimension(exception.value, syntaxError.value,fatalError.value);
+});
 const initDimension = (exception, syntaxError, fatalError) => {
   // const initDimension = () => {
   var myChart = echarts.init(evaluationDimension.value);
@@ -86,11 +91,11 @@ const initDimension = (exception, syntaxError, fatalError) => {
       radius: ["0%", "58%"],
       // shape: 'circle',
       indicator: [
-        { name: 'Total View Count', max: 10 },
-        { name: 'Avarage Answer Count', max: 5 },
-        { name: 'Total Answer Count', max: 5 },
-        { name: 'Question Count', max: 20 },
-        { name: 'Total Score', max: 10 },
+        { name: 'Average View Count', max: 15000 },
+        { name: 'Avarage Answer Count', max: 2 },
+        { name: 'Total Answer Count', max: 1400 },
+        { name: 'Question Count', max: 1000 },
+        { name: 'Total Score', max: 4000 },
         { name: 'Avarage Score', max: 5 }
       ]
     },
@@ -109,17 +114,17 @@ const initDimension = (exception, syntaxError, fatalError) => {
           {
             value: fatalError,
             // value : [2,2,2,2,2,2],
-            name: 'Syntax Error',
+            name: 'Fatal Error',
             itemStyle: {
-              color: '#0079AF' // 设置颜色
+              color: '#0E4180' // 设置颜色
             } 
           },
           {
             value: syntaxError,
             // value : [3,3,3,3,3,3],
-            name: 'Fatal Error',
+            name: 'Syntax Error',
             itemStyle: {
-              color: '#123E6B' // 设置颜色
+              color: '#0079AF' // 设置颜色
             } 
           }
         ]

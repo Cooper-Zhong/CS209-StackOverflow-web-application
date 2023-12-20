@@ -74,7 +74,7 @@ const initDimension = (chartData) => {
     },
     series: [
         {
-        name: 'Access From',
+        name: 'Average View',
         type: 'pie',
         radius: ['40%', '60%'],
         avoidLabelOverlap: false,

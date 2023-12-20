@@ -35,7 +35,7 @@
               <el-option label="Question Number" value="1" />
               <el-option label="Answer Number" value="2" />
               <el-option label="Average Score" value="3" />
-              <el-option label="View" value="4" />
+              <el-option label="Average View" value="4" />
             </el-select>
           </div>
           <div style="width: 50%;height: 100%">
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div v-else-if="selectTopic === '2'">
-        Standard: Answer Number
+        Standard: Average Answer Count
         <br>
         <br>
         <div style="width: 100%;display: flex">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div v-else-if="selectTopic === '4'">
-        Standard: View Count
+        Standard: Average View Count
         <br>
         <br>
         <div style="width: 100%;display: flex">
@@ -126,7 +126,7 @@
               <el-option label="Question Number" value="1" />
               <el-option label="Answer Number" value="2" />
               <el-option label="Average Score" value="3" />
-              <el-option label="View" value="4" />
+              <el-option label="Average View" value="4" />
             </el-select>
           </div>
           <div style="width: 40%;height: 100%">
@@ -137,9 +137,9 @@
     </div>
     <div v-if="selectBugSingle === '1'"> 
       <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: Question Number </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Question Number </div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Question Number </div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Question Number </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Question Number </div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Question Number </div>
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -153,9 +153,9 @@
     </div>
     <div v-else-if="selectBugSingle === '2'">
       <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br>  Standard: Answer Number </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Answer Number </div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Answer Number </div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>  Standard: Average Answer Count </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error <br><br>   Standard: Average Answer Count</div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Answer Count </div>
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -169,9 +169,9 @@
     </div>
     <div v-else-if="selectBugSingle === '3'">
       <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: Average Score </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: Average Score </div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: Average Score </div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average Score </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average Score </div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Score </div>
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -185,9 +185,9 @@
     </div>
     <div v-else-if="selectBugSingle === '4'">
       <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception    Standard: View Count </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error    Standard: View Count</div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error    Standard: View Count</div>
+      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average View Count </div>
+      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average View Count</div>
+      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average View Count</div>
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -209,7 +209,7 @@
           <bug-compare-radar></bug-compare-radar>
         </div>
         <div style="width: 50%;height: 100%">
-          <bug-compare-bar></bug-compare-bar>
+          <bug-compare-pie></bug-compare-pie>
         </div>
       </div>
   </div>
@@ -226,7 +226,7 @@
               <el-option label="Question Number" value="1" />
               <el-option label="Answer Number" value="2" />
               <el-option label="Average Score" value="3" />
-              <el-option label="View" value="4" />
+              <el-option label="Average View" value="4" />
               <el-option label="Appearance" value="5" />
             </el-select>
           </div>
@@ -250,7 +250,7 @@
       </div>
     </div>
     <div v-else-if="selectBug === '2'">
-      Standard: Answer Number
+      Standard: Average Answer Count
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -276,7 +276,7 @@
       </div>
     </div>
     <div v-else-if="selectBug === '4'">
-      Standard: View Count
+      Standard: Average View Count
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -410,7 +410,7 @@ import singleBugViewBar from './singleBug/singleBugViewBar.vue';
 import singleBugViewPie from './singleBug/singleBugViewPie.vue';
 
 import bugCompareRadar from './bugCompare/bugCompareRadar.vue';
-import bugCompareBar from './bugCompare/bugCompareBar.vue';
+import bugComparePie from './bugCompare/bugComparePie.vue';
 
 export default {
   name: 'mainPage',
@@ -463,7 +463,7 @@ export default {
     singleBugViewPie,
 
     bugCompareRadar,
-    bugCompareBar,
+    bugComparePie,
 },
 }
 </script>

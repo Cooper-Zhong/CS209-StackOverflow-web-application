@@ -78,7 +78,7 @@ const initDimension = (chartData) => {
   },
   series: [
       {
-      name: 'Bug Answer Count',
+      name: 'Average Answer Count',
       type: 'pie',
       radius: ['40%', '60%'],
       avoidLabelOverlap: false,
