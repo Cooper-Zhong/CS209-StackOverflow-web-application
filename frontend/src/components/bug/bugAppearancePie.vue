@@ -75,7 +75,7 @@ const initDimension = (chartData) => {
   },
   series: [
       {
-      name: 'Access From',
+      name: 'Appearance Count',
       type: 'pie',
       radius: ['40%', '60%'],
       avoidLabelOverlap: false,

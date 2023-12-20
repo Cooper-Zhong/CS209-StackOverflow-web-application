@@ -57,7 +57,6 @@ watch(() => [props['kIn']], () => {
 const initDimension = (chartData) => {
   var myChart = echarts.init(evaluationDimension.value);
   var option;
-
   option = {
   color:['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
              '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF'],
@@ -75,7 +74,7 @@ const initDimension = (chartData) => {
   },
   series: [
       {
-      name: 'Access From',
+      name: 'Average Answer Count',
       type: 'pie',
       radius: ['40%', '60%'],
       avoidLabelOverlap: false,
