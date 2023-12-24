@@ -2,6 +2,9 @@
   <!-- {{ topicIn }}
   {{ topic }}
   {{ searched }} -->
+  <!-- {{ items }} -->
+  <div v-if="items==[]||items == undefined ||items == null || items==''"> No Intimacy Topic finds.</div>
+  <div v-else>
     <Bar
         id="my-chart-id"
         :options="chartOptions"
@@ -14,6 +17,8 @@
           } ]
         }"
     />
+  </div>
+
   </template>
   
   <script>
@@ -25,6 +30,8 @@
   import {ref, defineComponent, onMounted, getCurrentInstance, watch} from 'vue';
   import axios from "axios";
   import {useToast} from "vuestic-ui";
+  // import { ElNotification } from 'element-plus'
+
   export default defineComponent({
     name: 'BarChart',
     props: {
@@ -41,9 +48,15 @@
       const topic = ref('java')
       const k = ref(10)
       const getIntimacy = () => {
+        // if(props.searched) {
+        //   topic.value=props.topicIn;
+        //   k.value = props.kIn;
+        // }
+        k.value = props.kIn;
         if(props.searched) {
-          topic.value=props.topicIn;
-          k.value = props.kIn;
+            if(props.topicIn!==undefined && props.topicIn!==null && props.topicIn!==''){
+                topic.value=props.topicIn;
+            }
         }
         axios.get('/topic/intimacy', {
             params: {

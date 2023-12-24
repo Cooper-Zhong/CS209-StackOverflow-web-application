@@ -369,7 +369,7 @@
 
 <script>
 import { Search } from '@element-plus/icons-vue'
-import { ElNotification } from 'element-plus'
+// import { ElNotification } from 'element-plus'
 
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
@@ -528,17 +528,17 @@ const relativeSearched = ref(false);
 // ]
 
 const confirmSearch = () => {
-  if(topic.value===''||topic.value === null || topic.value === undefined){
-        ElNotification({
-            title: 'Error',
-            message: 'You should input at least one letter.',
-            type: 'error',
-        })
-    }
-    else{
+  // if(topic.value===''||topic.value === null || topic.value === undefined){
+  //       ElNotification({
+  //           title: 'Error',
+  //           message: 'You should input at least one letter.',
+  //           type: 'error',
+  //       })
+  //   }
+  //   else{
       topicIn.value = topic.value;
       relativeSearched.value=true;
-    }
+    // }
 }
 </script>
 
