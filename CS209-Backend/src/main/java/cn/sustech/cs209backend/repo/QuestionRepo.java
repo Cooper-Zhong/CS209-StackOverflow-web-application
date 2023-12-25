@@ -18,7 +18,8 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
     List<Question> noAnswer(Date from, Date end);
 
     // tag ------------------------------------------------------
-    @Query(value = "SELECT q FROM Question q JOIN q.tags t WHERE t.tagName ilike %:tagName%")
+//    @Query(value = "SELECT q FROM Question q JOIN q.tags t WHERE t.tagName ilike %:tagName%")
+    @Query(value = "SELECT q FROM Question q JOIN q.tags t WHERE t.tagName = :tagName")
 //    @Query(value = "select q.question_id, account_id, answer_count, body, content_license, creation_date, " +
 //            "is_answered, last_activity_date, last_edit_date, link, score, title, view_count,tag_name " +
 //            "from questions q join questions_tags qt on q.question_id = qt.question_id " +
@@ -69,7 +70,8 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 
     // bug ------------------------------------------------------
 
-    @Query(value = "select q from Question q join q.bugs b where b.bugName ilike %:bugName%")
+//    @Query(value = "select q from Question q join q.bugs b where b.bugName ilike %:bugName%")
+    @Query(value = "select q from Question q join q.bugs b where b.bugName =:bugName")
     List<Question> findByBugName(String bugName);
 
 
