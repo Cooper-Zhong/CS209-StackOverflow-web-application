@@ -1,9 +1,8 @@
 // 在一个共享的工具文件中，例如 utils.js
-import * as echarts from "echarts";
+// import * as echarts from "echarts";
 import 'echarts-wordcloud';
 
-export const initECharts = (domId, wordcloudData, title) => {
-    let wordcloud = echarts.init(document.getElementById(domId));
+export const initECharts = (wordcloud, wordcloudData, title) => {
     let wordcloudOption = {
         title: {
             text: title,

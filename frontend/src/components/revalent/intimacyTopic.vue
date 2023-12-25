@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import * as echarts from "echarts";
 import { initECharts } from "./utils.js"; 
 import { ref, defineComponent, onMounted, getCurrentInstance, watch } from "vue";
 import axios from "axios";
@@ -27,6 +28,7 @@ export default defineComponent({
         const chartData = ref([]);
         const topic = ref('java')
         const k = ref(10)
+        let wordcloud;
         const getIntimacy = () => {
             // if(props.searched) {
             //     topic.value=props.topicIn;
@@ -59,7 +61,7 @@ export default defineComponent({
                     value: item.intimacy,
                 }));
                 // init(JSON.stringify(chartData.value))
-                initECharts('wordcloudIntimacy',chartData.value,`${topic.value} - Intimacy Topic WordCloud`)
+                initECharts(wordcloud,chartData.value,`${topic.value} - Intimacy Topic WordCloud`)
                 // init(JSON.stringify(items.value))
             })
             .catch(error => {
@@ -80,6 +82,7 @@ export default defineComponent({
             getIntimacy();
         });
         onMounted(() => {
+            wordcloud = echarts.init(document.getElementById('wordcloudIntimacy'));
             getIntimacy()
         });
     }
