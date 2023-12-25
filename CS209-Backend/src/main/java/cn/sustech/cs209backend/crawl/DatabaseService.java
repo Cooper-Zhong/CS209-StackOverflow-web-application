@@ -12,14 +12,14 @@ import java.util.Map;
 @Slf4j
 public class DatabaseService {
 
+    /**
+     * Reference: https://github.com/Maystern/stackoverflow-web-application
+     */
+
     private Connection connection;
     private static final String DB_HOST = "10.26.80.100";
-    private static final String DB_USER = "cooper";
-    private static final String DB_PASSWORD = "cooper";
-
-//    private static final String DB_HOST = "localhost";
-//    private static final String DB_USER = "postgres";
-//    private static final String DB_PASSWORD = "Lhx13922727768";
+    private static final String DB_USER = ""; // username, removed for security.
+    private static final String DB_PASSWORD = "";// password, removed for security.
 
     private static final String DB_DATABASE = "stackoverflow";
     private static final int DB_PORT = 5432;
@@ -61,37 +61,9 @@ public class DatabaseService {
 
     private PreparedStatement connectionCommentAndBugStatement;
 
-
-//    @Autowired
-//    private AnswerRepo answerRepo;
-//
-//    @Autowired
-//    private QuestionRepo questionRepo;
-//
-//    @Autowired
-//    private CommentRepo commentRepo;
-//
-//    @Autowired
-//    private UserRepo userRepo;
-//
-//    @Autowired
-//    private TagRepo tagRepo;
-//
-//    @Autowired
-//    private ApiRepo apiRepo;
-//
-//    @Autowired
-//    private BugRepo bugRepo;
-
     private final StanfordCoreNLPService stanfordCoreNLPService;
 
     public DatabaseService() {
-
-//        this.host = host;
-//        this.port = port;
-//        this.user = user;
-//        this.password = password;
-//        this.database = database;
         connection = null;
         stanfordCoreNLPService = new StanfordCoreNLPService();
         connect();
@@ -265,12 +237,6 @@ public class DatabaseService {
 
     public void insertTag(String tag_name) throws SQLException {
         // 在Tag表中插入一条记录
-//        selectTagStatement.setString(1, tag_name);
-//        ResultSet resultSet = selectTagStatement.executeQuery();
-//        resultSet.next();
-//        if (resultSet.getInt(1)>0) {
-//            return;
-//        }
         tagStatement.setString(1, tag_name);
         try {
             tagStatement.executeUpdate();
@@ -280,13 +246,6 @@ public class DatabaseService {
 
     public void insertApi(String api_name) throws SQLException {
         // 在Api表中插入一条记录
-//        selectApiStatement.setString(1, api_name);
-//        ResultSet resultSet = selectApiStatement.executeQuery();
-//        resultSet.next();
-//        if (resultSet.getInt(1)>0) {
-//            return;
-//        }
-
         apiStatement.setString(1, api_name);
         try {
             apiStatement.executeUpdate();
@@ -296,15 +255,6 @@ public class DatabaseService {
 
     public void insertBug(String bug_name) throws SQLException {
         // 在Bug表中插入一条记录
-
-
-//        selectBugStatement.setString(1, bug_name);
-//        ResultSet resultSet = selectBugStatement.executeQuery();
-//        resultSet.next();
-//        if (resultSet.getInt(1)>0) {
-//            return;
-//        }
-
         bugStatement.setString(1, bug_name);
         try {
             bugStatement.executeUpdate();
@@ -331,11 +281,6 @@ public class DatabaseService {
         } catch (Exception e) {
         }
 
-//        PreparedStatement statement = this.prepareStatement(
-//                "insert into answers (answer_id, account_id, body, content_license, creation_date, is_accepted,\n" +
-//                        "last_activity_date, last_edit_date, question_id, score) " +
-//                        "values (?,?,?,?,?,?,?,?,?,?);");
-
         answerStatement.setInt(1, answer_id);
         answerStatement.setInt(2, account_id);
         answerStatement.setString(3, body);
@@ -355,13 +300,6 @@ public class DatabaseService {
 
     public void insertOwner(int account_id, String link, String display_name, int reputation) throws SQLException {
         // 在Owner表中插入一条记录
-//        selectOwnerStatement.setInt(1, account_id);
-//        ResultSet resultSet = selectOwnerStatement.executeQuery();
-//        resultSet.next();
-//        if (resultSet.getInt(1)>0) {
-//            return;
-//        }
-
         ownerStatement.setInt(1, account_id);
         ownerStatement.setString(2, display_name);
         ownerStatement.setString(3, link);
@@ -389,10 +327,6 @@ public class DatabaseService {
             account_id = commentJSON.getJSONObject("owner").getInteger("account_id");
         } catch (Exception e) {
         }
-//
-//        PreparedStatement statement = this.prepareStatement(
-//                "insert into comments (comment_id, account_id, post_id, body, content_license, creation_date, edited, score) " +
-//                        "values (?,?,?,?,?,?,?,?);");
 
         commentStatement.setInt(1, comment_id);
         commentStatement.setInt(2, account_id);
@@ -502,13 +436,6 @@ public class DatabaseService {
         return new Timestamp(date*1000L);
     }
 
-    public void insertUpdateTime() throws SQLException {
-        PreparedStatement statement = this.prepareStatement(
-                "insert into last_update values (?);");
-        statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-        statement.executeUpdate();
-    }
-
     public void insertQuestionJson(JSONObject questionJSON) throws SQLException {
         // 将一个问题的JSON数据插入到数据库中
         JSONObject ownerJson = questionJSON.getJSONObject("owner");
@@ -534,16 +461,10 @@ public class DatabaseService {
             insertConnectionTagAndQuestion((String) tag, questionJSON.getInteger("question_id"));
         }
 
-//        insertOwner(
-//                owner.getAccountId(),
-//                owner.getLink(),
-//                owner.getDisplayName(),
-//                owner.getReputation()
-//        );
-
         Map<String, Integer> apiCount = stanfordCoreNLPService.getAllJavaAPI(questionJSON.getString("title") + " " +
                 questionJSON.getString("body"));
 
+        // bug info
         String[] bugs = {"Error", "Exception"};
         Map<String, Integer> bugCount = stanfordCoreNLPService.getAllKeywords(questionJSON.getString("title") + " " +
                 questionJSON.getString("body"), bugs);

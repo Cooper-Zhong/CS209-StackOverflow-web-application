@@ -7,5 +7,11 @@ public class test {
         java.util.Date date = new java.util.Date(seconds * 1000L);
         Timestamp timestamp = new Timestamp(seconds * 1000L);
         System.out.println(timestamp);
+
+        String s = "hello 11";
+        String[] ss = s.split(" ");
+        for (String sss : ss)
+            System.out.println(sss);
+        System.out.println(ss.length);
     }
 }

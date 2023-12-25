@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Reference: https://github.com/Maystern/stackoverflow-web-application
+ */
+
 public class StanfordCoreNLPService {
     private final Properties props;
     private final StanfordCoreNLP pipeline;

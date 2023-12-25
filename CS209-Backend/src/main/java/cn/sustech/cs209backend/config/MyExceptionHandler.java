@@ -13,7 +13,6 @@ public class MyExceptionHandler {
     @ExceptionHandler(value = MyException.class)
     @ResponseBody
     public GlobalResponse<String> exceptionHandler(MyException e){
-//        System.out.println("User Defined Exception ！Reason is :"+e);
         log.warn("User Defined Exception ！Reason is :"+e);
         return GlobalResponse.<String>builder()
             .code(e.getCode())
@@ -24,8 +23,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public GlobalResponse<String> exceptionHandler(Exception e){
-//        System.out.println("Unknow Exception！Reason is :"+e);
-        log.warn("Unknow Exception！Reason is :"+e);
+        log.error("Unknow Exception！Reason is :"+e);
         return GlobalResponse.<String>builder()
             .code(-10086)
             .msg(e.getMessage() + e.getStackTrace())

@@ -48,16 +48,16 @@ public class Crawler {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(questionJsonPath));
             StringBuilder content = new StringBuilder();
             String line;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                content.append(line);
-//            }
-//            bufferedReader.close();
-//            JSONArray jsonArray = JSONArray.parseArray(content.toString());
-//            for (Object obj : jsonArray) {
-//                JSONObject questionItem = (JSONObject) obj;
-//                databaseService.insertQuestionJson(questionItem);
-//            }
-            JSONArray jsonArray;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+            }
+            bufferedReader.close();
+            JSONArray jsonArray = JSONArray.parseArray(content.toString());
+            for (Object obj : jsonArray) {
+                JSONObject questionItem = (JSONObject) obj;
+                databaseService.insertQuestionJson(questionItem);
+            }
+//            JSONArray jsonArray;
 
             // answer
             bufferedReader = new BufferedReader(new FileReader(answerJsonPath));

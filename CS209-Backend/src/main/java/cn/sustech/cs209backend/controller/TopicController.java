@@ -101,6 +101,8 @@ public class TopicController {
         }
     }
 
+    // top k -------
+
     @GetMapping("/topKByViewCount/{k}")
     public List<TagViewCount> topKTagsByViewCount(@PathVariable int k) {
         try {

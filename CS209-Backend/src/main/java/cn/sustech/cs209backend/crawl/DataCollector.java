@@ -19,6 +19,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reference: https://github.com/Maystern/stackoverflow-web-application
+ */
 
 public class DataCollector {
     static String myApiKey = "L2JGrP5WXB*3kYD3S8iKVg((";
@@ -426,12 +429,10 @@ public class DataCollector {
             String answerPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/data/answers_" + topic + ".json";
             String commentPath = "/Users/cooperz/SUSTech/2023_Fall/CS209_Java2/Final-Project-repo/CS209-Backend/src/main/java/cn/sustech/cs209backend/crawl/data/comments_" + topic + ".json";
             try {
-                // 创建 FileWriter 对象
                 FileWriter fileWriter = new FileWriter(QuestionPath);
-                // 将 JSON 字符串写入文件
                 fileWriter.write(questionJsonString);
-                // 关闭 FileWriter
                 fileWriter.close();
+
                 System.out.println("questionJSON saved!");
                 fileWriter = new FileWriter(answerPath);
                 fileWriter.write(answerJsonString);
@@ -467,8 +468,6 @@ public class DataCollector {
             }
             info(redColorCode + "Comment已经插入数据库!" + resetColorCode);
             info(redColorCode + "数据插入数据库完成！" + resetColorCode);
-//        databaseService.insertUpdateTime();
-//        info(redColorCode + "更新时间已经插入数据库！" + resetColorCode);
             questionList.clear();
             answerList.clear();
             commentList.clear();
