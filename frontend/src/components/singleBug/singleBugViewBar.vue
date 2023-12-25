@@ -1,8 +1,9 @@
 <template>
-    <Bar
-        id="my-chart-id"
-        :options="chartOptions"
-        :data="{
+  <div v-if="items!=''">
+      <Bar
+      id="my-chart-id"
+      :options="chartOptions"
+      :data="{
         labels: items.map(item=>item.bugName),
         datasets: [ { 
           data: items.map(item => item.average_view_count), 
@@ -11,6 +12,8 @@
         } ]
       }"
     />
+  </div>
+
   </template>
   
   <script>

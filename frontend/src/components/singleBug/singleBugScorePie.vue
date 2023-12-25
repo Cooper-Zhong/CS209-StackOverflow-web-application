@@ -1,5 +1,7 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
+  <div ref="singleBugScore" style="width: 100%; height: 270px"></div>
+  <br>
+  
 </template>
 
 <script>
@@ -18,12 +20,13 @@ export default defineComponent({
 import * as echarts from "echarts";
 
 const props = defineProps(['kIn','type']);
-const evaluationDimension = ref()
+const singleBugScore = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
+var myChartSingleBugScore;
 const getBugsByScore = () => {
   if(props.type!==''&& props.type!==undefined&& props.type!==null){
       axios.get(`/${props['type']}/topKByAvgScore/${props['kIn']}`, {}, {})
@@ -34,7 +37,7 @@ const getBugsByScore = () => {
               name: item.bugName
           }));
           // init(JSON.stringify(chartData.value))
-          initDimension(chartData.value)
+          initDimension(myChartSingleBugScore,chartData.value)
           // init(JSON.stringify(items.value))
       })
       .catch(error => {
@@ -52,6 +55,7 @@ const getBugsByScore = () => {
 
 };
 onMounted(() => {
+  myChartSingleBugScore = echarts.init(singleBugScore.value);
   getBugsByScore()
 });
 watch(() => [props['kIn'], props['type']], () => {
@@ -59,8 +63,8 @@ watch(() => [props['kIn'], props['type']], () => {
 });
 
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChart, chartData) => {
+  // myChart = echarts.init(singleBugScore.value);
   var option;
 
   option = {

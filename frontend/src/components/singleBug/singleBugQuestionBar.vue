@@ -1,4 +1,5 @@
 <template>
+  <div v-if="items!=''">
     <Bar
         id="my-chart-id"
         :options="chartOptions"
@@ -11,6 +12,7 @@
         } ]
       }"
     />
+  </div>
   </template>
   
   <script>

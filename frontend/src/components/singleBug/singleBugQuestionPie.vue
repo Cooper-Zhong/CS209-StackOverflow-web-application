@@ -1,5 +1,6 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
+  <div ref="singleBugQuestion" style="width: 100%; height: 270px"></div>
+  <br>
 </template>
 
 <script>
@@ -16,14 +17,14 @@ export default defineComponent({
   
 <script setup>
 import * as echarts from "echarts";
-const evaluationDimension = ref()
+const singleBugQuestion = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const props = defineProps(['kIn','type']);
-
+var myChartSingleBugQuestion;
 const getBugsByQuestion = () => {
   if(props.type!==''&& props.type!==undefined&& props.type!==null){
     axios.get(`/${props['type']}/topKByQuestionCount/${props['kIn']}`, {}, {})
@@ -34,7 +35,7 @@ const getBugsByQuestion = () => {
             name: item.bugName
         }));
         // init(JSON.stringify(chartData.value))
-        initDimension(chartData.value)
+        initDimension(myChartSingleBugQuestion, chartData.value)
         // init(JSON.stringify(items.value))
     })
     .catch(error => {
@@ -52,6 +53,7 @@ const getBugsByQuestion = () => {
   
 };
 onMounted(() => {
+  myChartSingleBugQuestion = echarts.init(singleBugQuestion.value);
   getBugsByQuestion()
 });
 watch(() => [props['kIn'], props['type']], () => {
@@ -59,8 +61,11 @@ watch(() => [props['kIn'], props['type']], () => {
 });
 
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChartSingleBugQuestion,chartData) => {
+  // if (myChartSingleBugQuestion && myChartSingleBugQuestion.dispose) {
+  //   myChartSingleBugQuestion.dispose();
+  // }
+  // var myChartSingleBugQuestion = echarts.init(singleBugQuestion.value);
   var option;
 
   option = {
@@ -94,7 +99,7 @@ const initDimension = (chartData) => {
       }
   ]
   };
-  option && myChart.setOption(option);
+  option && myChartSingleBugQuestion.setOption(option);
 }
 
 </script>

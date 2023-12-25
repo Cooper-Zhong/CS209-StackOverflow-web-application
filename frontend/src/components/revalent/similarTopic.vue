@@ -7,7 +7,9 @@
 </template>
 
 <script>
+import * as echarts from "echarts";
 import { initECharts } from "./utils.js"; 
+import { ElNotification } from 'element-plus'
 import { ref, defineComponent, onMounted, getCurrentInstance, watch } from "vue";
 import axios from "axios";
 import {useToast} from "vuestic-ui";
@@ -26,10 +28,20 @@ export default defineComponent({
         const chartData = ref([]);
         const topic = ref('java')
         const k = ref(10)
+        let wordcloud;
         const getSimilar = () => {
+            k.value = props.kIn;
             if(props.searched) {
-                topic.value=props.topicIn;
-                k.value = props.kIn;
+                if(props.topicIn!==undefined && props.topicIn!==null && props.topicIn!==''){
+                    topic.value=props.topicIn;
+                }
+                else{
+                    ElNotification({
+                        title: 'Error',
+                        message: 'You should input at least one letter.',
+                        type: 'error',
+                    })
+                }
             }
             // init('coming')
             axios.get(`/topic/similar`, {
@@ -40,13 +52,19 @@ export default defineComponent({
             }, {})
             .then(response => {
                 items.value = response.data
+                if(items.value==[]||items.value==''){
+                    items.value=[{
+                        "similarity":1,
+                        "tagName":"Nothing"
+                    }]
+                }
                 // init(JSON.stringify(items.value))
                 chartData.value = items.value.map(item => ({
                     name: item.tagName,
                     value: item.similarity,
                 }));
                 // init(JSON.stringify(chartData.value))
-                initECharts('wordcloudSimilar',chartData.value,'Related Tag Defined By Similarity WordCloud')
+                initECharts(wordcloud,chartData.value,`${topic.value} - Similar Topic WordCloud`)
                 // init(JSON.stringify(items.value))
             })
             .catch(error => {
@@ -67,6 +85,7 @@ export default defineComponent({
             getSimilar();
         });
         onMounted(() => {
+            wordcloud = echarts.init(document.getElementById('wordcloudSimilar'));
             getSimilar()
         });
     }
