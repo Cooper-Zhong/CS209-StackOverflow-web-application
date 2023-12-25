@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import * as echarts from "echarts";
 import { initECharts } from "./utils.js"; 
 import { ElNotification } from 'element-plus'
 import { ref, defineComponent, onMounted, getCurrentInstance, watch } from "vue";
@@ -27,6 +28,7 @@ export default defineComponent({
         const chartData = ref([]);
         const topic = ref('java')
         const k = ref(10)
+        let wordcloud;
         const getSimilar = () => {
             k.value = props.kIn;
             if(props.searched) {
@@ -62,7 +64,7 @@ export default defineComponent({
                     value: item.similarity,
                 }));
                 // init(JSON.stringify(chartData.value))
-                initECharts('wordcloudSimilar',chartData.value,`${topic.value} - Similar Topic WordCloud`)
+                initECharts(wordcloud,chartData.value,`${topic.value} - Similar Topic WordCloud`)
                 // init(JSON.stringify(items.value))
             })
             .catch(error => {
@@ -83,6 +85,7 @@ export default defineComponent({
             getSimilar();
         });
         onMounted(() => {
+            wordcloud = echarts.init(document.getElementById('wordcloudSimilar'));
             getSimilar()
         });
     }
