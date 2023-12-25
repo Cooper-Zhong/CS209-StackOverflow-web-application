@@ -22,7 +22,7 @@ const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const props = defineProps(['kIn']);
-
+var myChart;
 const getBugsByQuestion = () => {
   axios.get(`/bug/topKByQuestionCount/${props['kIn']}`, {}, {})
   .then(response => {
@@ -32,7 +32,7 @@ const getBugsByQuestion = () => {
           name: item.bugName
       }));
       // init(JSON.stringify(chartData.value))
-      initDimension(chartData.value)
+      initDimension(myChart, chartData.value)
       // init(JSON.stringify(items.value))
   })
   .catch(error => {
@@ -48,6 +48,7 @@ const getBugsByQuestion = () => {
   });
 };
 onMounted(() => {
+  myChart = echarts.init(evaluationDimension.value);
   getBugsByQuestion()
 });
 watch(() => [props['kIn']], () => {
@@ -55,8 +56,8 @@ watch(() => [props['kIn']], () => {
 });
 
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChart, chartData) => {
+  // var myChart = echarts.init(evaluationDimension.value);
   var option;
 
   option = {

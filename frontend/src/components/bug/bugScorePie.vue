@@ -23,6 +23,7 @@ axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
+var myChart;
 const getBugsByScore = () => {
   axios.get(`/bug/topKByAvgScore/${props['kIn']}`, {}, {})
   .then(response => {
@@ -32,7 +33,7 @@ const getBugsByScore = () => {
           name: item.bugName
       }));
       // init(JSON.stringify(chartData.value))
-      initDimension(chartData.value)
+      initDimension(myChart, chartData.value)
       // init(JSON.stringify(items.value))
   })
   .catch(error => {
@@ -48,6 +49,7 @@ const getBugsByScore = () => {
   });
 };
 onMounted(() => {
+  myChart = echarts.init(evaluationDimension.value);
   getBugsByScore()
 });
 watch(() => [props['kIn']], () => {
@@ -55,8 +57,8 @@ watch(() => [props['kIn']], () => {
 });
 
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChart, chartData) => {
+  // var myChart = echarts.init(evaluationDimension.value);
   var option;
 
   option = {
