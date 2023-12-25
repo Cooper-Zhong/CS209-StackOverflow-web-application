@@ -1,6 +1,10 @@
 <template>
-  <div ref="evaluationDimension" style="width: 100%; height: 270px"></div>
-  <br>
+  <div ref="singleBugAnswer" style="width: 100%; height: 270px"></div>
+      <br>
+  <!-- <div v-if="items!=''">
+    <div ref="singleBugAnswer" style="width: 100%; height: 270px"></div>
+      <br>
+  </div> -->
 </template>
   
 <script>
@@ -17,13 +21,14 @@ export default defineComponent({
   
 <script setup>
 import * as echarts from "echarts";
-const evaluationDimension = ref()
+const singleBugAnswer = ref()
 const appConfig = ref(getCurrentInstance().appContext.config.globalProperties).value;
 axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
 const props = defineProps(['kIn','type']);
+var myChart;
 const getBugsByAnswers = () => {
   if(props.type!==''&& props.type!==undefined&& props.type!==null){
     axios.get(`/${props['type']}/topKByAnswerCount/${props['kIn']}`, {}, {})
@@ -34,7 +39,7 @@ const getBugsByAnswers = () => {
             name: item.bugName
         }));
         // init(JSON.stringify(chartData.value))
-        initDimension(chartData.value)
+        initDimension(myChart,chartData.value)
         // init(JSON.stringify(items.value))
     })
     .catch(error => {
@@ -52,14 +57,18 @@ const getBugsByAnswers = () => {
   
 };
 onMounted(() => {
+  myChart = echarts.init(singleBugAnswer.value);
   getBugsByAnswers()
 });
 watch(() => [props['type'], props['kIn']], () => {
   getBugsByAnswers();
 });
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChart,chartData) => {
+  // if (myChart && myChart.dispose) {
+  //   myChart.dispose();
+  // }
+  // var myChart = echarts.init(singleBugAnswer.value);
   var option;
 
   option = {

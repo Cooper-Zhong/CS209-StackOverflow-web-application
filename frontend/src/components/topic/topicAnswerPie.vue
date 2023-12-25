@@ -23,6 +23,7 @@ axios.defaults.baseURL = appConfig.$apiBaseUrl;
 const {init} = useToast();
 const items = ref([]);
 const chartData = ref([]);
+var myChart;
 const getTopicsByAnswers = () => {
   axios.get(`/topic/topKByAnswerCount/${props['kIn']}`, {}, {})
   .then(response => {
@@ -32,7 +33,7 @@ const getTopicsByAnswers = () => {
           name: item.tagName
       }));
       // init(JSON.stringify(chartData.value))
-      initDimension(chartData.value)
+      initDimension(myChart, chartData.value)
       // init(JSON.stringify(items.value))
   })
   .catch(error => {
@@ -48,14 +49,15 @@ const getTopicsByAnswers = () => {
   });
 };
 onMounted(() => {
+  myChart = echarts.init(evaluationDimension.value);
   getTopicsByAnswers()
 });
 watch(() => [props['kIn']], () => {
   getTopicsByAnswers();
 });
 
-const initDimension = (chartData) => {
-  var myChart = echarts.init(evaluationDimension.value);
+const initDimension = (myChart, chartData) => {
+  // var myChart = echarts.init(evaluationDimension.value);
   var option;
   option = {
   color:['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',

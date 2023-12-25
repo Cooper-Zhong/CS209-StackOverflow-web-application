@@ -1,16 +1,20 @@
 <template>
-    <Bar
-        id="my-chart-id"
-        :options="chartOptions"
-        :data="{
-          labels: items.map(item=>item.tagName),
-          datasets: [ { 
-            data: items.map(item => item.similarity),
-            backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
-             '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
-          } ]
-        }"
-    />
+    <div v-if="items==[]||items == undefined ||items == null || items==''"> No Similar Topic finds.</div>
+    <div v-else>
+      <Bar
+          id="my-chart-id"
+          :options="chartOptions"
+          :data="{
+            labels: items.map(item=>item.tagName),
+            datasets: [ { 
+              data: items.map(item => item.similarity),
+              backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED', '#4E8BC6', '#2A66A3',
+              '#0E4180', '#7FB5D8', '#8DC3E6', '#9ACFEF', '#AACFEB', '#B9D9F5', '#C6E3FD', '#D3EDFF']
+            } ]
+          }"
+      />
+    </div>
+
   </template>
   
   <script>
@@ -18,7 +22,7 @@
   import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
   
   ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-  
+  // import { ElNotification } from 'element-plus'
   import {ref, defineComponent, onMounted, getCurrentInstance, watch} from 'vue';
   import axios from "axios";
   import {useToast} from "vuestic-ui";
@@ -38,9 +42,15 @@
       const topic = ref('java')
       const k = ref(10)
       const getSimilar = () => {
+        // if(props.searched) {
+        //   topic.value=props.topicIn;
+        //   k.value = props.kIn;
+        // }
+        k.value = props.kIn;
         if(props.searched) {
-          topic.value=props.topicIn;
-          k.value = props.kIn;
+            if(props.topicIn!==undefined && props.topicIn!==null && props.topicIn!==''){
+                topic.value=props.topicIn;
+            }
         }
         axios.get('/topic/similar', {
             params: {

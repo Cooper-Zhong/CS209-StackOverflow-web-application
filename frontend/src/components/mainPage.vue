@@ -136,68 +136,85 @@
         </div>
     </div>
     <div v-if="selectBugSingle === '1'"> 
-      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Question Number </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Question Number </div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Question Number </div>
-      <br>
-      <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          <single-bug-question-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          <single-bug-question-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-pie>
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''"> <br> Please select a Bug Type. <br>. <br></div>
+      <div v-else>
+        <br> 
+        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Question Number </div>
+        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Question Number </div>
+        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Question Number </div>
+        <br>
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <single-bug-question-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <single-bug-question-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-question-pie>
+          </div>
         </div>
       </div>
+
     </div>
     <div v-else-if="selectBugSingle === '2'">
-      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>  Standard: Average Answer Count </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error <br><br>   Standard: Average Answer Count</div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Answer Count </div>
-      <br>
-      <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          <single-bug-answer-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          <single-bug-answer-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-pie>
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''"> <br> Please select a Bug Type. <br> <br></div>
+      <div v-else>
+        <br> 
+        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>  Standard: Average Answer Count </div>
+        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error <br><br>   Standard: Average Answer Count</div>
+        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Answer Count </div>
+        
+        <br>
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <single-bug-answer-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <single-bug-answer-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-answer-pie>
+          </div>
         </div>
       </div>
+
     </div>
     <div v-else-if="selectBugSingle === '3'">
-      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average Score </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average Score </div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Score </div>
-      <br>
-      <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          <single-bug-score-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          <single-bug-score-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-pie>
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''"> <br> Please select a Bug Type.  <br>  <br></div>
+      <div v-else>
+        <br> 
+        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average Score </div>
+        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average Score </div>
+        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average Score </div>
+        <br>
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <single-bug-score-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <single-bug-score-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-score-pie>
+          </div>
         </div>
       </div>
+
     </div>
     <div v-else-if="selectBugSingle === '4'">
-      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''">Please select a Bug Type.</div>
-      <div v-else-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average View Count </div>
-      <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average View Count</div>
-      <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average View Count</div>
-      <br>
-      <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          <single-bug-view-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          <single-bug-view-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-pie>
+      <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''"> <br> Please select a Bug Type.  <br>  <br> </div>
+      <div v-else>
+        <br> 
+        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Average View Count </div>
+        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Average View Count</div>
+        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Average View Count</div>
+        <br>
+        <br>
+        <div style="width: 100%;display: flex">
+          <div style="width: 50%;height: 100%">
+            <single-bug-view-bar :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-bar>
+          </div>
+          <div style="width: 50%;height: 100%">
+            <single-bug-view-pie :type="selectBugType" :kIn="sizeBugSingle"></single-bug-view-pie>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -369,7 +386,7 @@
 
 <script>
 import { Search } from '@element-plus/icons-vue'
-import { ElNotification } from 'element-plus'
+// import { ElNotification } from 'element-plus'
 
 import introductionPage from './introductionPage.vue'
 import topicAnswerBar from "@/components/topic/topicAnswerBar.vue";
@@ -528,17 +545,17 @@ const relativeSearched = ref(false);
 // ]
 
 const confirmSearch = () => {
-  if(topic.value===''||topic.value === null || topic.value === undefined){
-        ElNotification({
-            title: 'Error',
-            message: 'You should input at least one letter.',
-            type: 'error',
-        })
-    }
-    else{
+  // if(topic.value===''||topic.value === null || topic.value === undefined){
+  //       ElNotification({
+  //           title: 'Error',
+  //           message: 'You should input at least one letter.',
+  //           type: 'error',
+  //       })
+  //   }
+  //   else{
       topicIn.value = topic.value;
       relativeSearched.value=true;
-    }
+    // }
 }
 </script>
 

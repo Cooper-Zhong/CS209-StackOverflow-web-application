@@ -7,10 +7,12 @@
 </template>
 
 <script>
+import * as echarts from "echarts";
 import { initECharts } from "./utils.js"; 
 import { ref, defineComponent, onMounted, getCurrentInstance, watch } from "vue";
 import axios from "axios";
 import {useToast} from "vuestic-ui";
+// import { ElNotification } from 'element-plus'
 
 export default defineComponent({
     props: {
@@ -26,10 +28,17 @@ export default defineComponent({
         const chartData = ref([]);
         const topic = ref('java')
         const k = ref(10)
+        let wordcloud;
         const getIntimacy = () => {
+            // if(props.searched) {
+            //     topic.value=props.topicIn;
+            //     k.value = props.kIn;
+            // }
+            k.value = props.kIn;
             if(props.searched) {
-                topic.value=props.topicIn;
-                k.value = props.kIn;
+                if(props.topicIn!==undefined && props.topicIn!==null && props.topicIn!==''){
+                    topic.value=props.topicIn;
+                }
             }
             // init('coming')
             axios.get(`/topic/intimacy`, {
@@ -40,13 +49,19 @@ export default defineComponent({
             }, {})
             .then(response => {
                 items.value = response.data
+                if(items.value==''){
+                    items.value=[{
+                        "intimacy":1,
+                        "intimate_tag":"Nothing"
+                    }]
+                }
                 // init(JSON.stringify(items.value))
                 chartData.value = items.value.map(item => ({
                     name: item.intimate_tag,
                     value: item.intimacy,
                 }));
                 // init(JSON.stringify(chartData.value))
-                initECharts('wordcloudIntimacy',chartData.value,'Related Tag Defined By Intimacy WordCloud')
+                initECharts(wordcloud,chartData.value,`${topic.value} - Intimacy Topic WordCloud`)
                 // init(JSON.stringify(items.value))
             })
             .catch(error => {
@@ -67,6 +82,7 @@ export default defineComponent({
             getIntimacy();
         });
         onMounted(() => {
+            wordcloud = echarts.init(document.getElementById('wordcloudIntimacy'));
             getIntimacy()
         });
     }
