@@ -66,6 +66,7 @@
         axios.get(`/topic/avgAnswerCount/${topic.value}`, {}, {})
         .then(response => {
             avgAnswerCount.value = response.data
+            // init(JSON.stringify(response))
         })
         .catch(error => {
             if (error.response) {

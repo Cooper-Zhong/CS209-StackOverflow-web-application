@@ -42,6 +42,7 @@
         if(props.type!==''&& props.type!==undefined&& props.type!==null){
             axios.get(`/${props.type}/topKByAnswerCount/${props.kIn}`, {}, {})
             .then(response => {
+              // init(`/${props.type}/topKByAnswerCount/${props.kIn}`)
               items.value = response.data
               // init(JSON.stringify(items.value))
             })
