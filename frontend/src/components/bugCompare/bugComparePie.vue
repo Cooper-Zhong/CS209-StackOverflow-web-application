@@ -5,7 +5,7 @@
     
   <script setup>
   import * as echarts from "echarts";
-  import {ref, onMounted, getCurrentInstance, watch} from 'vue';
+  import {ref, onMounted, getCurrentInstance} from 'vue';
   import axios from "axios";
   import {useToast} from "vuestic-ui";
   const evaluationDimension = ref()
@@ -15,6 +15,7 @@
   const exception = ref([])
   const fatalError = ref([]);
   const syntaxError = ref([])
+  // var myChart;
   
   const getCompare = () => {
       // init( axios.defaults.baseURL+'/bugCompare/exception')
@@ -22,6 +23,37 @@
           .then(response => {
             exception.value = response.data
             exception.value.unshift('Exception')
+            axios.get(`/bugCompare/SyntaxError`, {}, {})
+            .then(response => {
+                syntaxError.value = response.data
+                syntaxError.value.unshift('Syntax Error')
+                axios.get(`/bugCompare/FatalError`, {}, {})
+                .then(response => {
+                    fatalError.value = response.data
+                    fatalError.value.unshift('Fatal Error')
+                    // init(JSON.stringify(fatalError.value))
+                    initDimension(exception.value, syntaxError.value,fatalError.value);
+                })
+                .catch(error => {
+                    if (error.response) {
+                    init({message: error.response.data.msg, color: "danger"})
+                    } else {
+                    // 一些错误是在设置请求的时候触发
+                    init({message: error.message, color: "danger"})
+
+                    }
+                });
+                // init(JSON.stringify(syntaxError.value))
+            })
+            .catch(error => {
+                if (error.response) {
+                init({message: error.response.data.msg, color: "danger"})
+                } else {
+                // 一些错误是在设置请求的时候触发
+                init({message: error.message, color: "danger"})
+
+                }
+            });
             // init(JSON.stringify(exception.value))
           })
           .catch(error => {
@@ -33,44 +65,15 @@
 
             }
           });
-      axios.get(`/bugCompare/SyntaxError`, {}, {})
-        .then(response => {
-            syntaxError.value = response.data
-            syntaxError.value.unshift('Syntax Error')
-            // init(JSON.stringify(syntaxError.value))
-        })
-        .catch(error => {
-            if (error.response) {
-            init({message: error.response.data.msg, color: "danger"})
-            } else {
-            // 一些错误是在设置请求的时候触发
-            init({message: error.message, color: "danger"})
-
-            }
-        });
-        axios.get(`/bugCompare/FatalError`, {}, {})
-        .then(response => {
-            fatalError.value = response.data
-            fatalError.value.unshift('Fatal Error')
-            // init(JSON.stringify(fatalError.value))
-            initDimension(exception.value, syntaxError.value,fatalError.value);
-        })
-        .catch(error => {
-            if (error.response) {
-            init({message: error.response.data.msg, color: "danger"})
-            } else {
-            // 一些错误是在设置请求的时候触发
-            init({message: error.message, color: "danger"})
-
-            }
-        });
       };
   onMounted(() => {
+    // myChart = echarts.init(evaluationDimension.value);
     getCompare()
   });
-  watch(() => [exception.value,syntaxError.value,fatalError.value], () => {
-    initDimension(exception.value, syntaxError.value,fatalError.value);
-  });
+  // watch(() => [exception.value,syntaxError.value,fatalError.value], () => {
+  //   initDimension(exception.value, syntaxError.value,fatalError.value);
+  // });
+
   // exception, syntaxError, fatalError
   const initDimension = (exception, syntaxError, fatalError) => {
     var myChart = echarts.init(evaluationDimension.value);
@@ -98,6 +101,44 @@
           fatalError,
         ]
       },
+      title: [
+      {
+          subtext: 'Average View Count',
+          left: '25%',
+          top: '30%',
+          textAlign: 'center'
+        },
+        {
+          subtext: 'Average Answer Count',
+          left: '75%',
+          top: '30%',
+          textAlign: 'center'
+        },
+        {
+          subtext: 'Total Answer Count',
+          left: '25%',
+          top: '60%',
+          textAlign: 'center'
+        },
+        {
+          subtext: 'Total Score',
+          left: '75%',
+          top: '60%',
+          textAlign: 'center'
+        },
+        {
+          subtext: 'Total Question Count',
+          left: '25%',
+          top: '90%',
+          textAlign: 'center'
+        },
+        {
+          subtext: 'Average Score',
+          left: '75%',
+          top: '90%',
+          textAlign: 'center'
+        },
+      ],
       series: [
         {
           type: 'pie',

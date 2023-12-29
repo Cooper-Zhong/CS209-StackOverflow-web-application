@@ -48,8 +48,8 @@ const app = createApp(App);
 
 app.use(ElementPlus);
 // app.config.globalProperties.$apiBaseUrl = 'http://10.25.211.110:8084';
-// app.config.globalProperties.$apiBaseUrl = 'http://localhost:8084';
+app.config.globalProperties.$apiBaseUrl = 'http://localhost:8084';
 // app.config.globalProperties.$echarts=echarts;
 
-app.config.globalProperties.$apiBaseUrl = 'http://10.26.80.100:8080';
+// app.config.globalProperties.$apiBaseUrl = 'http://10.26.80.100:8080';
 app.mount('#app');

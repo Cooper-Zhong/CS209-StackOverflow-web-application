@@ -20,6 +20,7 @@ const {init} = useToast();
 const exception = ref([])
 const fatalError = ref([]);
 const syntaxError = ref([])
+var myChart;
 
 const getCompare = () => {
       // init( axios.defaults.baseURL+'/bugCompare/exception')
@@ -66,14 +67,14 @@ const getCompare = () => {
       });
     };
 onMounted(() => {
+  myChart = echarts.init(evaluationDimension.value);
   getCompare()
 });
 watch(() => [exception.value,syntaxError.value,fatalError.value], () => {
-  initDimension(exception.value, syntaxError.value,fatalError.value);
+  initDimension(myChart, exception.value, syntaxError.value,fatalError.value);
 });
-const initDimension = (exception, syntaxError, fatalError) => {
+const initDimension = (myChart, exception, syntaxError, fatalError) => {
   // const initDimension = () => {
-  var myChart = echarts.init(evaluationDimension.value);
   var option;
 
   option = {

@@ -32,8 +32,8 @@
           <div class="m-4" style="width: 50%;height: 100%">
             <p>Standard</p>
             <el-select v-model="selectTopic" placeholder="Select" style="width: 50%">
-              <el-option label="Question Number" value="1" />
-              <el-option label="Answer Number" value="2" />
+              <el-option label="Question Count" value="1" />
+              <el-option label="Average Answer Count" value="2" />
               <el-option label="Average Score" value="3" />
               <el-option label="Average View" value="4" />
             </el-select>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div v-if="selectTopic === '1'"> 
-        Standard: Question Number
+        Standard: Question Count
         <br>
         <br>
         <div style="width: 100%;display: flex">
@@ -123,8 +123,8 @@
           <div class="m-4" style="width: 30%;height: 100%">
             <p>Standard</p>
             <el-select v-model="selectBugSingle" placeholder="Select" style="width: 50%">
-              <el-option label="Question Number" value="1" />
-              <el-option label="Answer Number" value="2" />
+              <el-option label="Question Count" value="1" />
+              <el-option label="Avergae Answer Count" value="2" />
               <el-option label="Average Score" value="3" />
               <el-option label="Average View" value="4" />
             </el-select>
@@ -139,9 +139,9 @@
       <div v-if="selectBugType===undefined||selectBugType==null||selectBugType===''"> <br> Please select a Bug Type. <br>. <br></div>
       <div v-else>
         <br> 
-        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Question Number </div>
-        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Question Number </div>
-        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Question Number </div>
+        <div v-if="selectBugType==='exception'">Bug Type: Exception  <br><br>   Standard: Question Count </div>
+        <div v-else-if="selectBugType==='syntaxError'">Bug Type: Syntax Error  <br><br>   Standard: Question Count </div>
+        <div v-else-if="selectBugType==='fatalError'">Bug Type: Fatal Error  <br><br>   Standard: Question Count </div>
         <br>
         <br>
         <div style="width: 100%;display: flex">
@@ -229,6 +229,33 @@
           <bug-compare-pie></bug-compare-pie>
         </div>
       </div>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          Average Bug Count
+          <br>
+          <multi-bug-answer-bar></multi-bug-answer-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          Question Count
+          <br>
+          <multi-bug-question-bar></multi-bug-question-bar>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div style="width: 100%;display: flex">
+        <div style="width: 50%;height: 100%">
+          Average Score Count
+          <br>
+          <multi-bug-score-bar></multi-bug-score-bar>
+        </div>
+        <div style="width: 50%;height: 100%">
+          Average View Count
+          <br>
+          <multi-bug-view-bar></multi-bug-view-bar>
+        </div>
+      </div>
   </div>
 
   <!-- bug multiple -->
@@ -240,8 +267,8 @@
           <div class="m-4" style="width: 50%;height: 100%">
             <p>Standard</p>
             <el-select v-model="selectBug" placeholder="Select" style="width: 50%">
-              <el-option label="Question Number" value="1" />
-              <el-option label="Answer Number" value="2" />
+              <el-option label="Question Count" value="1" />
+              <el-option label="Avergae Answer Count" value="2" />
               <el-option label="Average Score" value="3" />
               <el-option label="Average View" value="4" />
               <el-option label="Appearance" value="5" />
@@ -254,7 +281,7 @@
         </div>
     </div>
     <div v-if="selectBug === '1'"> 
-      Standard: Question Number
+      Standard: Question Count
       <br>
       <br>
       <div style="width: 100%;display: flex">
@@ -429,6 +456,11 @@ import singleBugViewPie from './singleBug/singleBugViewPie.vue';
 import bugCompareRadar from './bugCompare/bugCompareRadar.vue';
 import bugComparePie from './bugCompare/bugComparePie.vue';
 
+import MultiBugAnswerBar from './bug/MultiBugAnswerBar.vue';
+import MultiBugQuestionBar from './bug/MultiBugQuestionBar.vue';
+import MultiBugScoreBar from './bug/MultiBugScoreBar.vue';
+import MultiBugViewBar from './bug/MultiBugViewBar.vue';
+
 export default {
   name: 'mainPage',
   components: {
@@ -481,6 +513,12 @@ export default {
 
     bugCompareRadar,
     bugComparePie,
+
+    MultiBugAnswerBar,
+    MultiBugQuestionBar,
+    MultiBugViewBar,
+    MultiBugScoreBar,
+
 },
 }
 </script>
@@ -555,6 +593,9 @@ const confirmSearch = () => {
   //   else{
       topicIn.value = topic.value;
       relativeSearched.value=true;
+      setTimeout(() => {
+        relativeSearched.value = false;
+      }, 1000);
     // }
 }
 </script>
