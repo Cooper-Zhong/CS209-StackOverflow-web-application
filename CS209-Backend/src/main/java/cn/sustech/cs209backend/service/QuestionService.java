@@ -150,17 +150,17 @@ public class QuestionService {
         if (k<=0) throw new MyException(4, "k must be positive");
         List<JSONObject> resultList = new ArrayList<>();
         List<JSONObject> queryTagList = new ArrayList<>(); //存查询的tag，最后要加入到resultList中
-        Set<String> tagNames = new HashSet<>();
-        int totalOccurrence = 0;
-        int minCoOccurrence = Integer.MAX_VALUE;
-        int maxCoOccurrence = Integer.MIN_VALUE;
+        Set<String> tagNames = new HashSet<>(); // 存所有的tag，用于去重
+        long totalOccurrence = 0;
+        long minCoOccurrence = Integer.MAX_VALUE;
+        long maxCoOccurrence = Integer.MIN_VALUE;
         for (String s : topicArray) {
             List<JSONObject> similarTags = KSimilarTags(s, 1);
+            //fuzzy search, first find the exact tag that is in the database
             if (similarTags.isEmpty()) return new ArrayList<>();
             String queryTagName = (String) similarTags.get(0).get("tagName");
             queryTagList.add(similarTags.get(0));
             // intimacy
-            tagNames.add(queryTagName);
             List<Map> result = questionRepo.topKTagsByIntimacy(k, queryTagName);
             for (Map map : result) {
                 String tagName = (String) map.get("intimate_tag");
@@ -169,34 +169,38 @@ public class QuestionService {
                 long intimacy = (long) map.get("intimacy");
                 // update
                 totalOccurrence += intimacy;
-                minCoOccurrence = Math.min(minCoOccurrence, (int) intimacy);
-                maxCoOccurrence = Math.max(maxCoOccurrence, (int) intimacy);
+                minCoOccurrence = Math.min(minCoOccurrence, intimacy);
+                maxCoOccurrence = Math.max(maxCoOccurrence, intimacy);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("intimate_tag", tagName);
                 jsonObject.put("intimacy", intimacy);
                 resultList.add(jsonObject);
             }
         }
-        totalOccurrence += (maxCoOccurrence + 1)*queryTagList.size(); //用maxCoOccurrence+1作为queryTag的occurrence
-
-        // normalize
-        for (JSONObject jsonObject : resultList) {
-            long intimacy = (long) jsonObject.get("intimacy");
-            double normalizedIntimacy = normalize(intimacy, totalOccurrence);
-            jsonObject.put("intimacy", normalizedIntimacy);
-        }
         // add query tag
         for (JSONObject jsonObject : queryTagList) {
             String queryTagName = (String) jsonObject.get("tagName");
-            double normalizedIntimacy = normalize(maxCoOccurrence + 1, totalOccurrence); // 把queryTag scale 到最大的co-occurrence
+            if (tagNames.contains(queryTagName)) continue; // avoid duplicate
+            tagNames.add(queryTagName);
+            //!!!
+            totalOccurrence += maxCoOccurrence; //用maxCoOccurrence作为queryTag的occurrence
+            // 把queryTag scale 到maxCo-occurrence
             JSONObject queryTag = new JSONObject();
             queryTag.put("intimate_tag", queryTagName);
-            queryTag.put("intimacy", normalizedIntimacy);
+            queryTag.put("intimacy", maxCoOccurrence);
             resultList.add(queryTag);
         }
+//        // normalize
+//        for (JSONObject jsonObject : resultList) {
+//            long intimacy = (long) jsonObject.get("intimacy");
+//            double normalizedIntimacy = normalize(intimacy, totalOccurrence);
+//            jsonObject.put("intimacy", normalizedIntimacy);
+//        }
         resultList.sort((o1, o2) -> {
-            double intimacy1 = (double) o1.get("intimacy");
-            double intimacy2 = (double) o2.get("intimacy");
+//            double intimacy1 = (double) o1.get("intimacy");
+//            double intimacy2 = (double) o2.get("intimacy");
+            long intimacy1 = (long) o1.get("intimacy");
+            long intimacy2 = (long) o2.get("intimacy");
             if (intimacy1>intimacy2) return -1;
             else if (intimacy1<intimacy2) return 1;
             else return 0;
@@ -404,7 +408,6 @@ public class QuestionService {
     }
 
 
-
     // fatal error ------------------------------------------------------
 
     public List<BugViewCount> topKFatalErrorByViewCount(int k) {
@@ -461,7 +464,6 @@ public class QuestionService {
     }
 
 
-
     // syntax error ------------------------------------------------------
 
     public List<BugViewCount> topKSyntaxErrorByViewCount(int k) {
@@ -516,7 +518,6 @@ public class QuestionService {
         }
         return tempList;
     }
-
 
 
     // bug type ------------------------------------------------------
@@ -576,7 +577,6 @@ public class QuestionService {
         if (sum == 0) return 0;
         return sum/questions.size();
     }
-
 
 
 }

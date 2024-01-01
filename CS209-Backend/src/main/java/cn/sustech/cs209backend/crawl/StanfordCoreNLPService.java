@@ -58,7 +58,7 @@ public class StanfordCoreNLPService {
             List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
             for (CoreLabel token : tokens) {
                 String word = token.get(CoreAnnotations.TextAnnotation.class);
-                // word 以 keywords 中的任意一个开头
+                // word 包含 keywords 中的任意一个
                 for (String keyword : keywords) {
                     // java.lang.nullPointerException, i don't want a simple "Exception" string
                     if (word.contains(keyword) && !word.equals(keyword)) {
