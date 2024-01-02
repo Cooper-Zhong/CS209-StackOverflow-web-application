@@ -232,12 +232,12 @@
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          Average Bug Count
+          Top K Average Answer Count Group By Type
           <br>
           <multi-bug-answer-bar></multi-bug-answer-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          Question Count
+          Top K Question Count Group By Type
           <br>
           <multi-bug-question-bar></multi-bug-question-bar>
         </div>
@@ -246,12 +246,12 @@
       <br>
       <div style="width: 100%;display: flex">
         <div style="width: 50%;height: 100%">
-          Average Score Count
+          Top K Average Score Count Group By Type
           <br>
           <multi-bug-score-bar></multi-bug-score-bar>
         </div>
         <div style="width: 50%;height: 100%">
-          Average View Count
+          Top K Average View Count Group By Type
           <br>
           <multi-bug-view-bar></multi-bug-view-bar>
         </div>
