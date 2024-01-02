@@ -15,7 +15,7 @@
         <br>
         <br>        
         <div v-if="searched">
-            <el-descriptions title="User Info">
+            <el-descriptions title="Bug Popularity">
                 <el-descriptions-item label="Question Count">
                     <el-tag size="default">{{ bugQuestionCount }}</el-tag>
                 </el-descriptions-item>
