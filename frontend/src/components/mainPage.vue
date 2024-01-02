@@ -230,32 +230,32 @@
         </div>
       </div>
       <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          Top K Average Answer Count Group By Type
-          <br>
-          <multi-bug-answer-bar></multi-bug-answer-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          Top K Question Count Group By Type
-          <br>
-          <multi-bug-question-bar></multi-bug-question-bar>
-        </div>
-      </div>
-      <br>
-      <br>
-      <div style="width: 100%;display: flex">
-        <div style="width: 50%;height: 100%">
-          Top K Average Score Count Group By Type
-          <br>
-          <multi-bug-score-bar></multi-bug-score-bar>
-        </div>
-        <div style="width: 50%;height: 100%">
-          Top K Average View Count Group By Type
-          <br>
-          <multi-bug-view-bar></multi-bug-view-bar>
-        </div>
-      </div>
+<!--      <div style="width: 100%;display: flex">-->
+<!--        <div style="width: 50%;height: 100%">-->
+<!--          Top K Average Answer Count Group By Type-->
+<!--          <br>-->
+<!--          <multi-bug-answer-bar></multi-bug-answer-bar>-->
+<!--        </div>-->
+<!--        <div style="width: 50%;height: 100%">-->
+<!--          Top K Question Count Group By Type-->
+<!--          <br>-->
+<!--          <multi-bug-question-bar></multi-bug-question-bar>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <br>-->
+<!--      <br>-->
+<!--      <div style="width: 100%;display: flex">-->
+<!--        <div style="width: 50%;height: 100%">-->
+<!--          Top K Average Score Count Group By Type-->
+<!--          <br>-->
+<!--          <multi-bug-score-bar></multi-bug-score-bar>-->
+<!--        </div>-->
+<!--        <div style="width: 50%;height: 100%">-->
+<!--          Top K Average View Count Group By Type-->
+<!--          <br>-->
+<!--          <multi-bug-view-bar></multi-bug-view-bar>-->
+<!--        </div>-->
+<!--      </div>-->
   </div>
 
   <!-- bug multiple -->
@@ -456,10 +456,10 @@ import singleBugViewPie from './singleBug/singleBugViewPie.vue';
 import bugCompareRadar from './bugCompare/bugCompareRadar.vue';
 import bugComparePie from './bugCompare/bugComparePie.vue';
 
-import MultiBugAnswerBar from './bug/MultiBugAnswerBar.vue';
-import MultiBugQuestionBar from './bug/MultiBugQuestionBar.vue';
-import MultiBugScoreBar from './bug/MultiBugScoreBar.vue';
-import MultiBugViewBar from './bug/MultiBugViewBar.vue';
+// import MultiBugAnswerBar from './bug/MultiBugAnswerBar.vue';
+// import MultiBugQuestionBar from './bug/MultiBugQuestionBar.vue';
+// import MultiBugScoreBar from './bug/MultiBugScoreBar.vue';
+// import MultiBugViewBar from './bug/MultiBugViewBar.vue';
 
 export default {
   name: 'mainPage',
@@ -514,10 +514,10 @@ export default {
     bugCompareRadar,
     bugComparePie,
 
-    MultiBugAnswerBar,
-    MultiBugQuestionBar,
-    MultiBugViewBar,
-    MultiBugScoreBar,
+    // MultiBugAnswerBar,
+    // MultiBugQuestionBar,
+    // MultiBugViewBar,
+    // MultiBugScoreBar,
 
 },
 }
